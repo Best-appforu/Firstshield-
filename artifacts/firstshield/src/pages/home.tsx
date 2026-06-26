@@ -855,6 +855,351 @@ function SaferAppsCard() {
   );
 }
 
+// ── Card: App Permission Lookup (Exodus-style) ───────────────────────────────
+const APP_DB: Record<string, { trackers: number; risk: "low"|"medium"|"high"; perms: {icon:string; name:string; why:string; danger:"safe"|"warn"|"danger"}[] }> = {
+  "whatsapp":    { trackers:3, risk:"medium", perms:[
+    { icon:"🎤", name:"Microphone", why:"Voice calls & voice messages", danger:"warn" },
+    { icon:"📷", name:"Camera", why:"Photo & video sharing", danger:"warn" },
+    { icon:"📍", name:"Location", why:"Share your live location", danger:"warn" },
+    { icon:"👥", name:"Contacts", why:"Find friends on WhatsApp", danger:"danger" },
+    { icon:"💾", name:"Storage", why:"Save & share media files", danger:"safe" },
+  ]},
+  "instagram":   { trackers:7, risk:"high", perms:[
+    { icon:"📷", name:"Camera", why:"Post photos & reels", danger:"warn" },
+    { icon:"📍", name:"Location", why:"Tag location in posts", danger:"danger" },
+    { icon:"👥", name:"Contacts", why:"Find friends — also shares with Facebook", danger:"danger" },
+    { icon:"🎤", name:"Microphone", why:"Record videos & reels", danger:"warn" },
+    { icon:"📱", name:"Phone ID", why:"Links your device to Facebook's ad system", danger:"danger" },
+  ]},
+  "facebook":    { trackers:9, risk:"high", perms:[
+    { icon:"📍", name:"Location", why:"Location-based ads & check-ins", danger:"danger" },
+    { icon:"👥", name:"Contacts", why:"People you may know — sold to advertisers", danger:"danger" },
+    { icon:"📷", name:"Camera", why:"Photos & videos", danger:"warn" },
+    { icon:"📱", name:"Phone ID", why:"Tracks you across all websites", danger:"danger" },
+    { icon:"📞", name:"Call History", why:"Knows who you call", danger:"danger" },
+  ]},
+  "tiktok":      { trackers:6, risk:"high", perms:[
+    { icon:"📷", name:"Camera", why:"Record videos", danger:"warn" },
+    { icon:"🎤", name:"Microphone", why:"Audio for videos", danger:"warn" },
+    { icon:"📍", name:"Location", why:"Sent to overseas servers", danger:"danger" },
+    { icon:"📋", name:"Clipboard", why:"Reads what you copy-paste", danger:"danger" },
+    { icon:"👥", name:"Contacts", why:"Suggest friends to follow", danger:"danger" },
+  ]},
+  "youtube":     { trackers:4, risk:"medium", perms:[
+    { icon:"📷", name:"Camera", why:"Record & upload videos", danger:"warn" },
+    { icon:"🎤", name:"Microphone", why:"Voice search", danger:"safe" },
+    { icon:"💾", name:"Storage", why:"Download videos offline", danger:"safe" },
+    { icon:"📍", name:"Location", why:"Local content recommendations", danger:"warn" },
+  ]},
+  "snapchat":    { trackers:5, risk:"high", perms:[
+    { icon:"📷", name:"Camera", why:"Snaps & stories", danger:"warn" },
+    { icon:"📍", name:"Location", why:"Snap Map shows friends your exact location", danger:"danger" },
+    { icon:"👥", name:"Contacts", why:"Find friends — stores contact data", danger:"danger" },
+    { icon:"🎤", name:"Microphone", why:"Video snaps", danger:"warn" },
+  ]},
+  "google maps": { trackers:3, risk:"medium", perms:[
+    { icon:"📍", name:"Location (Always)", why:"Navigation — but tracks even in background", danger:"danger" },
+    { icon:"🎤", name:"Microphone", why:"Voice navigation commands", danger:"safe" },
+    { icon:"📷", name:"Camera", why:"Street View & place photos", danger:"safe" },
+  ]},
+  "chrome":      { trackers:5, risk:"high", perms:[
+    { icon:"📍", name:"Location", why:"Local search results", danger:"warn" },
+    { icon:"📷", name:"Camera", why:"QR code scanner", danger:"safe" },
+    { icon:"🎤", name:"Microphone", why:"Voice search", danger:"warn" },
+    { icon:"💾", name:"Storage", why:"Downloads & cache", danger:"safe" },
+    { icon:"🍪", name:"All Browsing Data", why:"Builds a profile of everything you browse", danger:"danger" },
+  ]},
+  "telegram":    { trackers:1, risk:"low", perms:[
+    { icon:"🎤", name:"Microphone", why:"Voice & video calls", danger:"safe" },
+    { icon:"📷", name:"Camera", why:"Share photos & videos", danger:"safe" },
+    { icon:"👥", name:"Contacts", why:"Find friends on Telegram", danger:"warn" },
+    { icon:"💾", name:"Storage", why:"Save media files", danger:"safe" },
+  ]},
+  "signal":      { trackers:0, risk:"low", perms:[
+    { icon:"🎤", name:"Microphone", why:"Encrypted voice calls only", danger:"safe" },
+    { icon:"📷", name:"Camera", why:"Encrypted photo sharing", danger:"safe" },
+    { icon:"👥", name:"Contacts", why:"Find friends — never uploaded to servers", danger:"safe" },
+  ]},
+  "uber":        { trackers:4, risk:"medium", perms:[
+    { icon:"📍", name:"Location (Always)", why:"Tracks location even between rides", danger:"danger" },
+    { icon:"📞", name:"Phone", why:"Call driver without revealing your number", danger:"safe" },
+    { icon:"📷", name:"Camera", why:"QR code check-in & ID verification", danger:"safe" },
+  ]},
+  "amazon":      { trackers:6, risk:"high", perms:[
+    { icon:"📷", name:"Camera", why:"Visual search & product scan", danger:"safe" },
+    { icon:"🎤", name:"Microphone", why:"Alexa voice shopping", danger:"warn" },
+    { icon:"📍", name:"Location", why:"Delivery address & local deals", danger:"warn" },
+    { icon:"🛍", name:"Purchase History", why:"Builds detailed shopping profile sold to brands", danger:"danger" },
+  ]},
+  "netflix":     { trackers:3, risk:"low", perms:[
+    { icon:"📷", name:"Camera", why:"QR code login", danger:"safe" },
+    { icon:"💾", name:"Storage", why:"Download shows offline", danger:"safe" },
+    { icon:"📺", name:"Watch History", why:"Tracks every pause, rewind & skip", danger:"warn" },
+  ]},
+  "spotify":     { trackers:4, risk:"medium", perms:[
+    { icon:"📷", name:"Camera", why:"QR code & profile photo", danger:"safe" },
+    { icon:"📍", name:"Location", why:"Local events & artist suggestions", danger:"warn" },
+    { icon:"🎵", name:"Listen History", why:"Tracks mood patterns through music choices", danger:"warn" },
+    { icon:"👥", name:"Contacts", why:"Friend activity feature", danger:"warn" },
+  ]},
+  "gmail":       { trackers:5, risk:"high", perms:[
+    { icon:"📧", name:"All Emails", why:"Google scans emails for targeted ads", danger:"danger" },
+    { icon:"👥", name:"Contacts", why:"Auto-complete & Google social graph", danger:"warn" },
+    { icon:"📷", name:"Camera", why:"Attach photos in emails", danger:"safe" },
+    { icon:"💾", name:"Storage", why:"Save email attachments", danger:"safe" },
+  ]},
+  "zoom":        { trackers:3, risk:"medium", perms:[
+    { icon:"🎤", name:"Microphone", why:"Meeting audio", danger:"safe" },
+    { icon:"📷", name:"Camera", why:"Video meetings", danger:"safe" },
+    { icon:"💾", name:"Storage", why:"Record meetings locally", danger:"warn" },
+    { icon:"📱", name:"Screen Recording", why:"Can record your entire screen", danger:"warn" },
+  ]},
+};
+
+const riskConfig = {
+  low:    { label:"Low Risk",   color:"text-[#2E7D32]", bg:"bg-[#EAF7ED]", bar:"#62B685", score:85 },
+  medium: { label:"Some Risk",  color:"text-[#E65100]", bg:"bg-[#FFF2CC]", bar:"#D4A373", score:55 },
+  high:   { label:"High Risk",  color:"text-[#C62828]", bg:"bg-[#FFE5EC]", bar:"#E57373", score:25 },
+};
+const dangerConfig = {
+  safe:   { dot:"bg-[#62B685]", label:"Safe" },
+  warn:   { dot:"bg-[#D4A373]", label:"Watch out" },
+  danger: { dot:"bg-[#E57373]", label:"Danger" },
+};
+
+function AppPermissionCard() {
+  const [query, setQuery] = useState("");
+  const [result, setResult] = useState<typeof APP_DB[string]|null>(null);
+  const [searched, setSearched] = useState("");
+  const POPULAR = ["WhatsApp","Instagram","TikTok","YouTube","Chrome","Telegram","Spotify","Netflix"];
+
+  const lookup = (name: string) => {
+    const key = name.toLowerCase().trim();
+    sfx.click();
+    const found = APP_DB[key];
+    setSearched(name);
+    setResult(found || null);
+  };
+
+  const rc = result ? riskConfig[result.risk] : null;
+
+  return (
+    <BaseCard icon={Smartphone} iconBg="bg-[#E8F0FE]" iconColor="#4A90E2" title="App Permission Lookup" accent="#4A90E2">
+      <p className="text-xs text-[#6C6775] mb-3 leading-relaxed">
+        Type any app name to instantly see what data it collects from your phone 👇
+      </p>
+
+      {/* Search bar */}
+      <div className="flex gap-2 mb-3">
+        <input
+          value={query} onChange={e => setQuery(e.target.value)}
+          onKeyDown={e => e.key==="Enter" && query.trim() && lookup(query)}
+          placeholder="e.g. Instagram, TikTok..."
+          className="flex-1 px-4 py-2.5 rounded-2xl border border-[#EDE7DE] bg-[#FCF9F5] text-sm focus:outline-none focus:border-[#4A90E2] focus:ring-2 focus:ring-[#4A90E2]/20 transition-all"
+        />
+        <motion.button whileTap={{ scale:0.92 }} onClick={() => query.trim() && lookup(query)}
+          className="px-4 py-2.5 rounded-2xl text-white text-sm font-bold"
+          style={{ background:"linear-gradient(135deg,#4A90E2,#7D52B3)" }}>
+          Check
+        </motion.button>
+      </div>
+
+      {/* Popular chips */}
+      <div className="flex flex-wrap gap-1.5 mb-4">
+        {POPULAR.map(app => (
+          <button key={app} onClick={() => { setQuery(app); lookup(app); }}
+            className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#E8F0FE] text-[#4A90E2] hover:bg-[#4A90E2] hover:text-white transition-colors">
+            {app}
+          </button>
+        ))}
+      </div>
+
+      {/* Result */}
+      <AnimatePresence mode="wait">
+        {result && rc && (
+          <motion.div key={searched} initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0 }}>
+            {/* Header */}
+            <div className={`flex items-center justify-between p-3.5 rounded-2xl mb-3 ${rc.bg}`}>
+              <div>
+                <p className="font-heading font-bold text-base text-[#3D3A45]">{searched}</p>
+                <p className={`text-xs font-bold ${rc.color}`}>{rc.label} — {result.trackers} hidden tracker{result.trackers!==1?"s":""} found</p>
+              </div>
+              <div className="text-right">
+                <div className={`text-2xl font-heading font-bold ${rc.color}`}>{rc.score}%</div>
+                <div className="text-[10px] text-[#6C6775]">Privacy Score</div>
+              </div>
+            </div>
+            {/* Score bar */}
+            <div className="w-full h-2.5 bg-[#EDE7DE] rounded-full mb-4 overflow-hidden">
+              <motion.div className="h-full rounded-full"
+                initial={{ width:0 }} animate={{ width:`${rc.score}%` }}
+                style={{ background: rc.bar }} transition={{ duration:0.8, ease:"easeOut" }} />
+            </div>
+            {/* Permissions list */}
+            <p className="text-[10px] font-bold text-[#6C6775] uppercase tracking-wider mb-2">What this app accesses on your phone:</p>
+            <div className="space-y-2">
+              {result.perms.map((p,i) => {
+                const dc = dangerConfig[p.danger];
+                return (
+                  <motion.div key={i} initial={{ opacity:0, x:-8 }} animate={{ opacity:1, x:0 }} transition={{ delay:i*0.06 }}
+                    className="flex items-center gap-3 p-2.5 rounded-xl bg-[#FCF9F5] border border-[#EDE7DE]">
+                    <span className="text-lg shrink-0">{p.icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-bold text-[#3D3A45]">{p.name}</div>
+                      <div className="text-[10px] text-[#6C6775] leading-snug">{p.why}</div>
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <div className={`w-2 h-2 rounded-full ${dc.dot}`} />
+                      <span className="text-[10px] font-bold text-[#6C6775]">{dc.label}</span>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+        {searched && !result && (
+          <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} className="text-center py-6 text-sm text-[#6C6775]">
+            <div className="text-3xl mb-2">🔍</div>
+            <p className="font-bold">App not found in our database.</p>
+            <p className="text-xs mt-1">Try a popular app above, or check its App Store listing manually.</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </BaseCard>
+  );
+}
+
+// ── Card: ToS Simplified (ToS;DR-style) ──────────────────────────────────────
+const TOS_DB: Record<string, { grade:"A"|"B"|"C"|"D"|"E"; summary:string; green:string[]; red:string[] }> = {
+  "Signal":     { grade:"A", summary:"Collects almost nothing. Open source. Trusted by security experts worldwide.",
+    green:["Messages are fully encrypted — even Signal can't read them","Collects only your phone number — nothing else","Open source code — anyone can verify it's safe","No ads. No data selling. Ever."],
+    red:["Requires a phone number to sign up (no anonymous accounts)"],
+  },
+  "Telegram":   { grade:"B", summary:"Good encryption for Secret Chats only. Regular chats are stored on Telegram's servers.",
+    green:["Secret Chats are end-to-end encrypted","You can delete messages for both sides","No ads in personal chats"],
+    red:["Regular group chats are NOT end-to-end encrypted","Telegram can read your cloud messages","Based in Dubai — legal jurisdiction is unclear"],
+  },
+  "WhatsApp":   { grade:"C", summary:"Messages are encrypted, but metadata (who you talk to, when, where) is fully shared with Facebook.",
+    green:["Messages themselves are end-to-end encrypted","Can enable disappearing messages"],
+    red:["Shares your contact list, phone number & usage data with Meta/Facebook","Backs up to Google Drive removes encryption","Accepts terms or lose access — no real choice"],
+  },
+  "Instagram":  { grade:"D", summary:"Heavily tracks you across the internet. Owns your photo licence. Sells your attention to advertisers.",
+    green:["You can download your data","Account can be set to private"],
+    red:["Gets a royalty-free licence to use your photos commercially","Tracks your activity on other websites and apps","Shares all data with Facebook advertising system","Algorithm designed to maximise screen time, not your wellbeing"],
+  },
+  "Facebook":   { grade:"E", summary:"One of the most extensive data collection operations on earth. Your data is the product.",
+    green:["You can download a copy of your data","Can delete your account"],
+    red:["Tracks you on millions of websites even when you're not using Facebook","Builds detailed psychological profiles for advertisers","Has faced billions in fines for privacy violations","Sells your data to third parties without clear consent","Facial recognition used on your photos"],
+  },
+  "TikTok":     { grade:"D", summary:"Extremely invasive data collection. Data sent to overseas servers. Clipboard access concerns.",
+    green:["Can set account to private","Can delete videos you've posted"],
+    red:["Collects keystroke patterns, clipboard content, and device fingerprint","Data sent to servers in China — subject to Chinese law","Algorithm tracks emotions and responses to manipulate your feed","Used by children — raised serious child safety concerns globally"],
+  },
+  "Google":     { grade:"C", summary:"Useful but builds a permanent profile of everything you do online.",
+    green:["Google Takeout lets you download all your data","Two-step verification available","Can auto-delete history after 3/18 months"],
+    red:["Tracks your location even with location history turned off","Voice recordings stored in Google servers","Every search, video, and click builds your advertising profile","Difficult to truly opt out — Google is embedded everywhere"],
+  },
+  "YouTube":    { grade:"C", summary:"Tracks watch history and habits extensively. Autoplay designed to keep you watching longer.",
+    green:["Can clear and pause watch history","Premium removes ads","Can restrict content for kids with YouTube Kids"],
+    red:["Tracks every video you watch, pause, or skip","Autoplay algorithm can lead to increasingly extreme content","Recommended algorithm prioritises engagement over accuracy"],
+  },
+  "Snapchat":   { grade:"D", summary:"Snaps may disappear from your screen but metadata and some content is kept.",
+    green:["Snaps auto-delete by default","Can see who took a screenshot"],
+    red:["Snap Map reveals your real-time location to friends","Snapchat keeps metadata of all messages","Has had major data breaches in the past","Stores and analyses facial data for filters"],
+  },
+  "Uber":       { grade:"C", summary:"Collects location continuously. Shares trip data with third parties.",
+    green:["Trip history available to users","Can share trip with a trusted contact"],
+    red:["Tracks your location continuously — even between trips","Shares ride data with advertisers and insurance companies","Surge pricing algorithm has been called manipulative"],
+  },
+  "Netflix":    { grade:"B", summary:"Relatively fair. Doesn't sell your data. Tracks viewing habits for recommendations.",
+    green:["Does not sell your data to advertisers","Transparent about data use","Can download content offline"],
+    red:["Tracks every pause, rewind, and skip to profile your behaviour","Password sharing crackdown affects paying users","Price increased significantly with no added user benefit"],
+  },
+  "Spotify":    { grade:"B", summary:"Reasonable policies. Tracks listening habits for recommendations and ads.",
+    green:["Can download data","Transparent about ad-supported model","Family plan offers good value"],
+    red:["Tracks mood patterns through music listening habits","Free tier users hear targeted ads based on behaviour","Shares listening data with brand partners"],
+  },
+};
+
+const gradeConfig: Record<string,{ color:string; bg:string; border:string; label:string }> = {
+  A: { color:"#2E7D32", bg:"#EAF7ED", border:"#A7D7B8", label:"Excellent" },
+  B: { color:"#1565C0", bg:"#E8F0FE", border:"#C5D8FB", label:"Good" },
+  C: { color:"#E65100", bg:"#FFF2CC", border:"#FDE68A", label:"Mixed" },
+  D: { color:"#C62828", bg:"#FFE5EC", border:"#FECACA", label:"Bad" },
+  E: { color:"#7B1FA2", bg:"#F3E8FF", border:"#DDD6FE", label:"Avoid!" },
+};
+
+function ToSCard() {
+  const apps = Object.keys(TOS_DB);
+  const [selected, setSelected] = useState("WhatsApp");
+  const data = TOS_DB[selected];
+  const gc = gradeConfig[data.grade];
+
+  return (
+    <BaseCard icon={FileText} iconBg="bg-[#FFF2CC]" iconColor="#D4A373" title="Terms — Plain & Simple" accent="#D4A373">
+      <p className="text-xs text-[#6C6775] mb-3 leading-relaxed">
+        We read the Terms of Service so you don't have to. Pick an app to see if it's honest with you 👇
+      </p>
+
+      {/* App selector */}
+      <div className="flex flex-wrap gap-1.5 mb-4">
+        {apps.map(app => (
+          <button key={app} onClick={() => { setSelected(app); sfx.click(); }}
+            className={`text-xs font-bold px-3 py-1.5 rounded-full transition-all duration-200
+              ${selected===app ? "bg-[#3D3A45] text-white shadow" : "bg-[#FCF9F5] text-[#3D3A45] border border-[#EDE7DE] hover:border-[#3D3A45]"}`}>
+            {app}
+          </button>
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div key={selected} initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0 }}>
+          {/* Grade badge */}
+          <div className="flex items-center gap-4 p-4 rounded-2xl mb-4" style={{ background:gc.bg, border:`1.5px solid ${gc.border}` }}>
+            <div className="h-16 w-16 rounded-2xl flex items-center justify-center shrink-0 shadow-sm"
+              style={{ background:gc.color }}>
+              <span className="text-4xl font-heading font-bold text-white">{data.grade}</span>
+            </div>
+            <div>
+              <p className="font-heading font-bold text-lg" style={{ color:gc.color }}>{selected} — {gc.label}</p>
+              <p className="text-xs text-[#6C6775] leading-snug mt-0.5">{data.summary}</p>
+            </div>
+          </div>
+
+          {/* Green points */}
+          <div className="bg-[#EAF7ED] rounded-2xl p-3.5 mb-3">
+            <p className="text-xs font-bold text-[#3A7D54] mb-2 flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5" /> What they do right
+            </p>
+            <div className="space-y-1.5">
+              {data.green.map((g,i) => (
+                <div key={i} className="flex items-start gap-2 text-xs text-[#2E5A44]">
+                  <span className="text-[#62B685] shrink-0 mt-0.5">✓</span> {g}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Red points */}
+          <div className="bg-[#FFE5EC] rounded-2xl p-3.5">
+            <p className="text-xs font-bold text-[#C94A4A] mb-2 flex items-center gap-1.5">
+              <AlertTriangle className="h-3.5 w-3.5" /> What they do wrong
+            </p>
+            <div className="space-y-1.5">
+              {data.red.map((r,i) => (
+                <div key={i} className="flex items-start gap-2 text-xs text-[#8B2020]">
+                  <span className="text-[#E57373] shrink-0 mt-0.5">✕</span> {r}
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </BaseCard>
+  );
+}
+
 // ── Home ──────────────────────────────────────────────────────────────────────
 const stagger = {
   hidden: { opacity:0 },
@@ -922,7 +1267,7 @@ export default function Home() {
       {/* Grid */}
       <motion.div variants={stagger} initial="hidden" animate="show"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-        {[AppSafetyCard, PrivacyScoreCard, TermsCard, EyeHealthCard, PostureCard, SleepCard, NightTimeCard, WifiSafetyCard, SaferAppsCard].map((Card,i) => (
+        {[AppSafetyCard, AppPermissionCard, ToSCard, PrivacyScoreCard, EyeHealthCard, PostureCard, SleepCard, NightTimeCard, WifiSafetyCard, SaferAppsCard].map((Card,i) => (
           <motion.div key={i} variants={rise}><Card /></motion.div>
         ))}
       </motion.div>
