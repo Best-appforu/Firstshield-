@@ -1200,6 +1200,395 @@ function ToSCard() {
   );
 }
 
+// ── Card: Privacy Action Plan ────────────────────────────────────────────────
+const PERMISSIONS = [
+  {
+    id:"location", emoji:"📍", name:"Location", color:"#E57373", bg:"#FFE5EC", light:"#FFF0F3",
+    tagline:"Apps that track where you go, even when closed",
+    culprits:[
+      { app:"Facebook",  risk:"Tracks you 24/7 for ad targeting" },
+      { app:"Instagram", risk:"Shares location data with Meta" },
+      { app:"TikTok",   risk:"Sends location to overseas servers" },
+      { app:"Snapchat",  risk:"Snap Map reveals your exact location to friends" },
+      { app:"Google Maps",risk:"Tracks movement even in background" },
+    ],
+    android:[
+      "Open ⚙️ Settings on your phone",
+      "Tap Apps (or App Manager)",
+      "Select the app (e.g. Facebook)",
+      "Tap Permissions → Location",
+      'Change from "Allow all the time" → "Only while using app" or "Deny"',
+    ],
+    iphone:[
+      "Open ⚙️ Settings on your iPhone",
+      "Scroll down and tap the app name (e.g. Instagram)",
+      "Tap Location",
+      'Change to "Never" or "While Using App"',
+      "Repeat for each app you want to restrict",
+    ],
+    cartoon: (
+      <svg viewBox="0 0 120 100" className="w-full h-full">
+        {/* Body */}
+        <ellipse cx="60" cy="72" rx="22" ry="18" fill="#FBBF24"/>
+        {/* Head */}
+        <circle cx="60" cy="45" r="20" fill="#FDE68A"/>
+        {/* Worried eyes */}
+        <ellipse cx="53" cy="42" rx="4" ry="5" fill="white"/>
+        <ellipse cx="67" cy="42" rx="4" ry="5" fill="white"/>
+        <circle cx="53" cy="44" r="2.5" fill="#3D3A45"/>
+        <circle cx="67" cy="44" r="2.5" fill="#3D3A45"/>
+        {/* Frown */}
+        <path d="M53 54 Q60 50 67 54" stroke="#3D3A45" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        {/* Sweat drop */}
+        <ellipse cx="76" cy="38" rx="3" ry="4" fill="#60A5FA" opacity="0.8"/>
+        {/* Location pin above head */}
+        <path d="M60 10 C53 10 47 16 47 23 C47 31 60 42 60 42 C60 42 73 31 73 23 C73 16 67 10 60 10Z" fill="#E57373"/>
+        <circle cx="60" cy="23" r="5" fill="white"/>
+        {/* Arms */}
+        <line x1="38" y1="68" x2="25" y2="60" stroke="#FBBF24" strokeWidth="6" strokeLinecap="round"/>
+        <line x1="82" y1="68" x2="95" y2="60" stroke="#FBBF24" strokeWidth="6" strokeLinecap="round"/>
+        {/* Legs */}
+        <line x1="52" y1="88" x2="48" y2="100" stroke="#FBBF24" strokeWidth="6" strokeLinecap="round"/>
+        <line x1="68" y1="88" x2="72" y2="100" stroke="#FBBF24" strokeWidth="6" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    id:"contacts", emoji:"👥", name:"Contacts", color:"#7B52B3", bg:"#F3E8FF", light:"#FAF5FF",
+    tagline:"Apps that upload your entire phone book to their servers",
+    culprits:[
+      { app:"Facebook",  risk:"Maps your social network for ad targeting" },
+      { app:"WhatsApp",  risk:"Uploads all contacts to Meta's servers" },
+      { app:"TikTok",   risk:"Stores contact list to suggest 'people you know'" },
+      { app:"LinkedIn",  risk:"Scans contacts to suggest connections" },
+      { app:"Snapchat",  risk:"Keeps contact data even after you delete the app" },
+    ],
+    android:[
+      "Open ⚙️ Settings → Apps",
+      "Select the app (e.g. TikTok)",
+      "Tap Permissions → Contacts",
+      'Tap "Deny"',
+      "The app will still work — it just can't steal your address book",
+    ],
+    iphone:[
+      "Open ⚙️ Settings → Privacy & Security",
+      "Tap Contacts",
+      "You'll see every app that has access",
+      "Toggle OFF any app that doesn't truly need it",
+      "Tip: Messaging apps need it, games & shopping apps never do",
+    ],
+    cartoon: (
+      <svg viewBox="0 0 120 100" className="w-full h-full">
+        {/* Phone body */}
+        <rect x="30" y="20" width="60" height="75" rx="8" fill="#7B52B3"/>
+        <rect x="34" y="28" width="52" height="55" rx="4" fill="#EDE9FE"/>
+        {/* Contact cards */}
+        <rect x="38" y="32" width="44" height="12" rx="3" fill="white"/>
+        <circle cx="46" cy="38" r="4" fill="#A78BFA"/>
+        <rect x="54" y="35" width="20" height="2.5" rx="1" fill="#C4B5FD"/>
+        <rect x="54" y="39" width="14" height="2" rx="1" fill="#DDD6FE"/>
+        <rect x="38" y="48" width="44" height="12" rx="3" fill="white"/>
+        <circle cx="46" cy="54" r="4" fill="#F87171"/>
+        <rect x="54" y="51" width="20" height="2.5" rx="1" fill="#FCA5A5"/>
+        <rect x="54" y="55" width="14" height="2" rx="1" fill="#FEE2E2"/>
+        {/* Thief hand reaching out */}
+        <path d="M90 55 L110 45 L108 60 L90 62Z" fill="#F59E0B" opacity="0.9"/>
+        <circle cx="110" cy="50" r="6" fill="#FDE68A"/>
+        {/* Warning mark */}
+        <circle cx="95" cy="30" r="10" fill="#E57373"/>
+        <text x="95" y="34" textAnchor="middle" fontSize="12" fill="white" fontWeight="bold">!</text>
+      </svg>
+    ),
+  },
+  {
+    id:"microphone", emoji:"🎤", name:"Microphone", color:"#D97706", bg:"#FFF2CC", light:"#FFFBEB",
+    tagline:"Apps that may listen even when you're not using them",
+    culprits:[
+      { app:"Facebook",  risk:"Allegations of listening for ad targeting (denied but suspected)" },
+      { app:"TikTok",   risk:"Mic access active during app use — unclear when it stops" },
+      { app:"Instagram", risk:"Always-on mic permission requested by default" },
+      { app:"Snapchat",  risk:"Microphone on during any screen time in app" },
+      { app:"Google",    risk:"Hey Google hotword detection runs continuously" },
+    ],
+    android:[
+      "Open ⚙️ Settings → Privacy → Permission Manager",
+      "Tap Microphone",
+      "Review every app listed there",
+      'For social apps: change to "Only while using"',
+      'For apps that have no reason: tap "Deny"',
+    ],
+    iphone:[
+      "Open ⚙️ Settings → Privacy & Security",
+      "Tap Microphone",
+      "See every app with mic access",
+      "Toggle OFF any social or shopping app",
+      "Only keep ON: Phone, WhatsApp, Zoom, voice recorder apps",
+    ],
+    cartoon: (
+      <svg viewBox="0 0 120 100" className="w-full h-full">
+        {/* Microphone */}
+        <rect x="50" y="15" width="20" height="35" rx="10" fill="#D97706"/>
+        <rect x="50" y="15" width="20" height="35" rx="10" fill="url(#micGrad)" opacity="0.4"/>
+        {/* Mic stand */}
+        <path d="M38 50 Q60 65 82 50" stroke="#92400E" strokeWidth="3" fill="none" strokeLinecap="round"/>
+        <line x1="60" y1="63" x2="60" y2="82" stroke="#92400E" strokeWidth="3"/>
+        <line x1="45" y1="82" x2="75" y2="82" stroke="#92400E" strokeWidth="3" strokeLinecap="round"/>
+        {/* Sound waves */}
+        <path d="M88 30 Q95 40 88 50" stroke="#F59E0B" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.8"/>
+        <path d="M94 25 Q104 40 94 55" stroke="#FCD34D" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.6"/>
+        {/* Eye on mic (spy element) */}
+        <ellipse cx="60" cy="32" rx="7" ry="5" fill="white"/>
+        <circle cx="60" cy="32" r="3" fill="#92400E"/>
+        <circle cx="61" cy="31" r="1" fill="white"/>
+        {/* Defs */}
+        <defs>
+          <linearGradient id="micGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="white"/>
+            <stop offset="100%" stopColor="transparent"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+  },
+  {
+    id:"camera", emoji:"📷", name:"Camera", color:"#16A34A", bg:"#DCFCE7", light:"#F0FDF4",
+    tagline:"Apps that can silently activate your camera",
+    culprits:[
+      { app:"Instagram", risk:"Camera stays ready even on home screen of the app" },
+      { app:"Snapchat",  risk:"Opens camera immediately — always watching" },
+      { app:"TikTok",   risk:"Camera access during entire session, not just recording" },
+      { app:"Facebook",  risk:"Face recognition on all photos you upload" },
+      { app:"WhatsApp",  risk:"Camera permission active during all app sessions" },
+    ],
+    android:[
+      "Open ⚙️ Settings → Privacy → Permission Manager",
+      "Tap Camera",
+      "Review all apps listed",
+      'Set social apps to "Only while using"',
+      'For any app you don\'t recognize: tap "Deny" immediately',
+    ],
+    iphone:[
+      "Open ⚙️ Settings → Privacy & Security",
+      "Tap Camera",
+      "Toggle OFF every app that isn't a camera, video, or scan app",
+      "Instagram, TikTok, Snapchat: set to 'Never' if you rarely use in-app camera",
+      "You can always grant it again temporarily when needed",
+    ],
+    cartoon: (
+      <svg viewBox="0 0 120 100" className="w-full h-full">
+        {/* Camera body */}
+        <rect x="20" y="35" width="80" height="50" rx="8" fill="#16A34A"/>
+        <rect x="20" y="35" width="80" height="50" rx="8" fill="white" opacity="0.1"/>
+        {/* Lens */}
+        <circle cx="60" cy="60" r="18" fill="#064E3B"/>
+        <circle cx="60" cy="60" r="13" fill="#065F46"/>
+        <circle cx="60" cy="60" r="8" fill="#047857"/>
+        <circle cx="60" cy="60" r="4" fill="black"/>
+        <circle cx="57" cy="57" r="1.5" fill="white" opacity="0.6"/>
+        {/* Flash */}
+        <rect x="75" y="40" width="16" height="10" rx="3" fill="#FCD34D"/>
+        {/* Viewfinder */}
+        <rect x="26" y="28" width="20" height="12" rx="3" fill="#16A34A"/>
+        {/* Red recording dot */}
+        <circle cx="95" cy="42" r="5" fill="#EF4444">
+          <animate attributeName="opacity" values="1;0.3;1" dur="1.2s" repeatCount="indefinite"/>
+        </circle>
+        {/* Spy figure reflected in lens */}
+        <circle cx="60" cy="57" r="3" fill="#FDE68A" opacity="0.6"/>
+        <line x1="60" y1="60" x2="58" y2="65" stroke="#FDE68A" strokeWidth="1.5" opacity="0.6"/>
+        <line x1="60" y1="60" x2="62" y2="65" stroke="#FDE68A" strokeWidth="1.5" opacity="0.6"/>
+      </svg>
+    ),
+  },
+  {
+    id:"storage", emoji:"💾", name:"Storage & Files", color:"#4A90E2", bg:"#E8F0FE", light:"#EEF4FF",
+    tagline:"Apps that read all your personal files, photos and documents",
+    culprits:[
+      { app:"Facebook",  risk:"Scans all photos for facial recognition data" },
+      { app:"TikTok",   risk:"Reads device files to build a fingerprint of your phone" },
+      { app:"WhatsApp",  risk:"Reads all media to enable sharing — stores copies on Meta servers" },
+      { app:"Amazon",   risk:"Accesses photos to enable 'visual search' feature" },
+      { app:"Loan apps", risk:"Scan your gallery for documents to use against you later" },
+    ],
+    android:[
+      "Open ⚙️ Settings → Apps → [App Name]",
+      "Tap Permissions → Files and Media",
+      'Change to "Allow access to media files only" instead of "All files"',
+      "For loan apps: DENY completely — they have no reason to read your files",
+      "Check this for every app you didn't deliberately give storage access to",
+    ],
+    iphone:[
+      "Open ⚙️ Settings → Privacy & Security → Photos",
+      "See every app accessing your photo library",
+      'Change suspicious apps from "All Photos" to "Selected Photos" or "None"',
+      "Also check: Settings → Privacy & Security → Files and Folders",
+      "No game, loan or shopping app should have any file access",
+    ],
+    cartoon: (
+      <svg viewBox="0 0 120 100" className="w-full h-full">
+        {/* Folder */}
+        <path d="M15 45 L15 90 L105 90 L105 45 Q105 38 98 38 L55 38 L48 28 L22 28 Q15 28 15 35Z" fill="#4A90E2"/>
+        <path d="M15 50 L105 50 L105 90 L15 90Z" fill="#60A5FA"/>
+        {/* Files inside */}
+        <rect x="30" y="58" width="25" height="22" rx="2" fill="white" opacity="0.9"/>
+        <rect x="60" y="58" width="25" height="22" rx="2" fill="white" opacity="0.9"/>
+        {/* Photo icon on file */}
+        <rect x="32" y="60" width="21" height="14" rx="1" fill="#E8F0FE"/>
+        <circle cx="36" cy="64" r="2" fill="#FCD34D"/>
+        <path d="M32 72 L38 66 L43 70 L48 65 L53 72Z" fill="#16A34A" opacity="0.7"/>
+        {/* Document lines on second file */}
+        <line x1="63" y1="63" x2="83" y2="63" stroke="#C4B5FD" strokeWidth="1.5"/>
+        <line x1="63" y1="67" x2="80" y2="67" stroke="#C4B5FD" strokeWidth="1.5"/>
+        <line x1="63" y1="71" x2="77" y2="71" stroke="#C4B5FD" strokeWidth="1.5"/>
+        {/* Thief/spy hands grabbing */}
+        <path d="M90 40 L115 30 L112 50 L90 52Z" fill="#FDE68A" opacity="0.85"/>
+        <circle cx="113" cy="38" r="7" fill="#FBBF24"/>
+        <path d="M108 34 L116 34 M112 30 L112 38" stroke="#92400E" strokeWidth="2" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+];
+
+// Tiny shield mascot SVG
+function ShieldMascot({ happy }: { happy: boolean }) {
+  return (
+    <svg viewBox="0 0 60 70" className="w-14 h-14 shrink-0">
+      <path d="M30 4 L54 14 L54 38 Q54 56 30 66 Q6 56 6 38 L6 14Z" fill={happy ? "#62B685" : "#E57373"}/>
+      <path d="M30 10 L48 18 L48 38 Q48 52 30 60 Q12 52 12 38 L12 18Z" fill={happy ? "#86EFAC" : "#FCA5A5"} opacity="0.5"/>
+      {/* Eyes */}
+      <ellipse cx="23" cy="30" rx="4" ry={happy ? 3 : 4} fill="white"/>
+      <ellipse cx="37" cy="30" rx="4" ry={happy ? 3 : 4} fill="white"/>
+      <circle cx="23" cy={happy ? 30 : 31} r="2.5" fill="#3D3A45"/>
+      <circle cx="37" cy={happy ? 30 : 31} r="2.5" fill="#3D3A45"/>
+      {happy
+        ? <path d="M22 40 Q30 46 38 40" stroke="#3D3A45" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        : <path d="M22 43 Q30 39 38 43" stroke="#3D3A45" strokeWidth="2" fill="none" strokeLinecap="round"/>
+      }
+      {!happy && <ellipse cx="40" cy="26" rx="3" ry="4" fill="#60A5FA" opacity="0.7"/>}
+    </svg>
+  );
+}
+
+function PrivacyActionCard() {
+  const [active, setActive] = useState(0);
+  const [os, setOs] = useState<"android"|"iphone">("android");
+  const [done, setDone] = useState<Set<number>>(new Set());
+  const p = PERMISSIONS[active];
+
+  const toggleDone = (i: number) => {
+    sfx.click();
+    setDone(prev => {
+      const n = new Set(prev);
+      n.has(i) ? n.delete(i) : n.add(i);
+      return n;
+    });
+  };
+  const steps = os === "android" ? p.android : p.iphone;
+  const allDone = steps.every((_,i) => done.has(i));
+
+  return (
+    <BaseCard icon={ShieldAlert} iconBg="bg-[#FFE5EC]" iconColor="#E57373" title="Turn Off Spy Permissions" accent="#E57373">
+      <p className="text-xs text-[#6C6775] mb-4 leading-relaxed">
+        Follow these steps to stop apps from spying on you. Tap each step as you complete it ✅
+      </p>
+
+      {/* Permission tabs */}
+      <div className="flex gap-2 overflow-x-auto pb-1 mb-4 scrollbar-hide">
+        {PERMISSIONS.map((pm, i) => (
+          <button key={pm.id} onClick={() => { setActive(i); setDone(new Set()); sfx.click(); }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all shrink-0"
+            style={{
+              background: active===i ? pm.color : "#FCF9F5",
+              color: active===i ? "white" : "#6C6775",
+              border: `1.5px solid ${active===i ? pm.color : "#EDE7DE"}`,
+            }}>
+            {pm.emoji} {pm.name}
+          </button>
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div key={p.id} initial={{ opacity:0, x:16 }} animate={{ opacity:1, x:0 }} exit={{ opacity:0, x:-16 }}
+          transition={{ duration:0.25 }}>
+
+          {/* Cartoon + tagline */}
+          <div className="flex items-center gap-4 mb-4 p-3 rounded-2xl" style={{ background: p.light }}>
+            <div className="w-20 h-20 shrink-0">{p.cartoon}</div>
+            <div>
+              <p className="font-bold text-sm text-[#3D3A45] mb-1">{p.emoji} {p.name} Permission</p>
+              <p className="text-xs text-[#6C6775] leading-snug">{p.tagline}</p>
+            </div>
+          </div>
+
+          {/* Apps using this right now */}
+          <div className="rounded-2xl mb-4 overflow-hidden border border-[#EDE7DE]">
+            <div className="px-3.5 py-2.5 flex items-center gap-2" style={{ background: p.color }}>
+              <AlertTriangle className="h-3.5 w-3.5 text-white shrink-0"/>
+              <p className="text-xs font-bold text-white">Apps likely using your {p.name} right now:</p>
+            </div>
+            <div className="divide-y divide-[#F5F0EB]">
+              {p.culprits.map((c,i) => (
+                <div key={i} className="flex items-start gap-3 px-3.5 py-2.5 bg-white">
+                  <span className="text-sm font-bold text-[#3D3A45] w-24 shrink-0">{c.app}</span>
+                  <span className="text-xs text-[#C62828] leading-snug">{c.risk}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* OS toggle */}
+          <div className="flex rounded-2xl overflow-hidden border border-[#EDE7DE] mb-3">
+            {(["android","iphone"] as const).map(o => (
+              <button key={o} onClick={() => { setOs(o); setDone(new Set()); sfx.click(); }}
+                className="flex-1 py-2.5 text-xs font-bold flex items-center justify-center gap-1.5 transition-all"
+                style={{ background: os===o ? p.color : "white", color: os===o ? "white" : "#6C6775" }}>
+                {o==="android" ? "🤖" : "🍎"} {o==="android" ? "Android" : "iPhone"}
+              </button>
+            ))}
+          </div>
+
+          {/* Step-by-step checklist */}
+          <div className="space-y-2 mb-4">
+            {steps.map((step,i) => (
+              <motion.button key={i} onClick={() => toggleDone(i)}
+                whileTap={{ scale:0.97 }}
+                className="w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all"
+                style={{ background: done.has(i) ? p.bg : "#FCF9F5", border: `1.5px solid ${done.has(i) ? p.color+"55" : "#EDE7DE"}` }}>
+                <div className="mt-0.5 h-5 w-5 rounded-full shrink-0 flex items-center justify-center border-2 transition-all"
+                  style={{ borderColor: done.has(i) ? p.color : "#C4B5FD", background: done.has(i) ? p.color : "white" }}>
+                  {done.has(i) && <span className="text-white text-[10px] font-bold">✓</span>}
+                </div>
+                <div className="min-w-0">
+                  <span className="text-[10px] font-bold uppercase tracking-wider mr-2"
+                    style={{ color: p.color }}>Step {i+1}</span>
+                  <span className="text-xs text-[#3D3A45] leading-snug">{step}</span>
+                </div>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* All done celebration */}
+          <AnimatePresence>
+            {allDone && (
+              <motion.div initial={{ opacity:0, scale:0.9 }} animate={{ opacity:1, scale:1 }} exit={{ opacity:0 }}
+                className="flex items-center gap-3 p-3.5 rounded-2xl"
+                style={{ background: p.bg, border:`1.5px solid ${p.color}55` }}>
+                <ShieldMascot happy={true}/>
+                <div>
+                  <p className="font-bold text-sm" style={{ color: p.color }}>Great job! 🎉</p>
+                  <p className="text-xs text-[#6C6775] leading-snug">
+                    Your {p.name} permission is now locked down. Try the next permission tab to keep going!
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
+    </BaseCard>
+  );
+}
+
 // ── Home ──────────────────────────────────────────────────────────────────────
 const stagger = {
   hidden: { opacity:0 },
@@ -1267,7 +1656,7 @@ export default function Home() {
       {/* Grid */}
       <motion.div variants={stagger} initial="hidden" animate="show"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-        {[AppSafetyCard, AppPermissionCard, ToSCard, PrivacyScoreCard, EyeHealthCard, PostureCard, SleepCard, NightTimeCard, WifiSafetyCard, SaferAppsCard].map((Card,i) => (
+        {[AppSafetyCard, AppPermissionCard, ToSCard, PrivacyActionCard, PrivacyScoreCard, EyeHealthCard, PostureCard, SleepCard, NightTimeCard, WifiSafetyCard, SaferAppsCard].map((Card,i) => (
           <motion.div key={i} variants={rise}><Card /></motion.div>
         ))}
       </motion.div>
