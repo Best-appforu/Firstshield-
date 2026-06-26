@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FirstShield — നിങ്ങളുടെ ഡിജിറ്റൽ സുരക്ഷാ കവചം</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Manjari:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Elegant Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-cream: #FCF9F5;
+            --pastel-purple: #F3E8FF;
+            --pastel-mint: #EAF7ED;
+            --pastel-pink: #FFE5EC;
+            --pastel-blue: #E8F0FE;
+            --pastel-yellow: #FFF2CC;
+            --text-dark: #3D3A45;
+            --text-muted: #6C6775;
+            --border-color: #EDE7DE;
+            --accent-green: #62B685;
+            --accent-red: #E57373;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-sm: 0 10px 30px rgba(160, 145, 130, 0.06);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Manjari', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            padding: 20px 20px 60px 20px;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand-name {
+            font-family: 'Comfortaa', cursive;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Banner */
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo-badge {
+            width: 85px;
+            height: 85px;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 38px;
+            color: #7D52B3;
+            box-shadow: 0 10px 25px rgba(243, 232, 255, 0.8);
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        .brand-name {
+            font-size: 2.8rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 700;
+        }
+
+        /* Pinterest Grid Layout */
+        .pinterest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* Card Styling */
+        .card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            padding: 28px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(160, 145, 130, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+        }
+
+        /* 1. Mobile App Safety Advisor Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            background: var(--bg-cream);
+            padding: 4px;
+            border-radius: 50px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            background: transparent;
+            font-family: 'Manjari', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: var(--transition);
+            color: var(--text-muted);
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--text-dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .flag-box {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: var(--radius-md);
+        }
+
+        .flag-box.green { background-color: rgba(234, 247, 237, 0.5); }
+        .flag-box.red { background-color: rgba(255, 229, 236, 0.5); }
+
+        .flag-box h4 {
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .flag-box.green h4 { color: #3A7D54; }
+        .flag-box.red h4 { color: #C94A4A; }
+
+        .flag-box ul {
+            list-style: none;
+            font-size: 0.9rem;
+            padding-left: 4px;
+        }
+
+        .flag-box li {
+            margin-bottom: 4px;
+            position: relative;
+            padding-left: 14px;
+        }
+
+        .flag-box li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* 2. Privacy Score Calculator */
+        .calc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .calc-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calc-item:hover { background: var(--bg-cream); }
+
+        .calc-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #7D52B3;
+        }
+
+        .calc-info h5 { font-size: 0.95rem; font-weight: 700; }
+        .calc-info p { font-size: 0.8rem; color: var(--text-muted); }
+
+        .score-box {
+            text-align: center;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            background: var(--pastel-blue);
+            transition: var(--transition);
+        }
+
+        .score-num {
+            font-family: 'Comfortaa', cursive;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .score-status {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        /* 3. Terms & Conditions Cheat Sheet */
+        .trap-item {
+            border-left: 3px solid var(--accent-red);
+            background: rgba(255, 229, 236, 0.3);
+            padding: 12px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin-bottom: 12px;
+        }
+
+        .trap-item h4 { font-size: 0.95rem; margin-bottom: 4px; color: #C94A4A; }
+        .trap-item p { font-size: 0.88rem; color: var(--text-dark); line-height: 1.4; }
+
+        /* 4. Eye Health Guard */
+        .eye-banner {
+            background: var(--pastel-yellow);
+            padding: 14px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--text-dark);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Manjari', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .btn-action:hover {
+            background: #232127;
+            transform: scale(1.01);
+        }
+
+        /* 5. Body Posture & Bedtime Shield */
+        .tips-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tip-box {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .tip-icon {
+            font-size: 1.2rem;
+            color: #7D52B3;
+            margin-top: 2px;
+        }
+
+        .tip-text h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+        .tip-text p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* 6. Wi-Fi Safety & Headphone Rule */
+        .wifi-accent {
+            background: var(--pastel-mint);
+            padding: 12px;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            margin-bottom: 12px;
+            border: 1px dashed var(--accent-green);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3D3A45;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show { bottom: 30px; }
+
+        /* Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 2000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal { transform: scale(1); }
+
+        .modal i {
+            font-size: 3rem;
+            color: #7D52B3;
+            margin-bottom: 16px;
+        }
+
+        .modal h3 { font-size: 1.4rem; margin-bottom: 12px; }
+        .modal p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
+
+        /* Footer Guarantee */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 24px;
+            background: var(--pastel-mint);
+            border-radius: var(--radius-md);
+            border: 1px solid #D1E7DD;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #2E5A44;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Responsive Layout Grid adjustment */
+        @media (max-width: 768px) {
+            .pinterest-grid { grid-template-columns: 1fr; }
+            .brand-name { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <div class="hero">
+            <div class="logo-badge"><i class="fa-solid fa-shield-halved"></i></div>
+            <h1 class="brand-name">FirstShield</h1>
+            <p class="tagline">നിങ്ങളുടെ ഫോണിൽ മറ്റെന്തിനും മുൻപ് ഇൻസ്റ്റാൾ ചെയ്യേണ്ട ഡിജിറ്റൽ സുരക്ഷാ - ആരോഗ്യ സഹായി.</p>
+        </div>
+
+        <!-- Main Pinterest Style Grid -->
+        <div class="pinterest-grid">
+
+            <!-- 1. Mobile App Safety Advisor -->
+            <div class="card" style="background-color: #FFF;">
+                <div class="card-header">
+                    <div class="card-icon" style="background: var(--pastel-purple); color: #7D52B3;"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <h3 class="card-title">ആപ്പ് സുരക്ഷാ ഉപദേശകൻ</h3>
+                </div>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab(event, 'google')">Google/YT</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'instagram')">Instagram</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'loans')">Loan Apps</button>
+                </div>
+
+                <!-- Google Tab Content -->
+                <div id="google" class="tab-content active">
+                    <div class="flag-box green">
+                        <h4><i class="fa-solid fa-circle-check"></i> Green Flags</h4>
+                        <ul>
+                            <li>ട്രാക്കിംഗ് ഹിസ്റ്ററി തനിയെ ഡിലീറ്റ് ചെയ്യാനുള്ള ഓപ്ഷൻ.</li>
+                            <li>ടു-സ്റ്റെപ്പ് വെരിഫിക്കേഷൻ സുരക്ഷ ഉറപ്പാക്കുന്നു.</li>
+                        </ul>
+                    </div>
+                    <div class="flag-box red">
+                        <h4><i class="fa-solid fa-circle-exclamation"></i> Red Flags</h4>
+                        <ul>
+                            <li>നിങ്ങളുടെ ലൊക്കേഷൻ വിവരങ്ങൾ എപ്പോഴും ട്രാക്ക് ചെയ്യുന്നു.</li>
+                            <li>വ്യക്തിഗത പരസ്യങ്ങൾക്കായി തിരച്ചിലുകൾ നിരീക്ഷിക്കുന്നു.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Instagram Tab Content -->
+                <div id="instagram" class="tab-content">
+                    <div class="flag-box green">
+                        <h4><i class="fa-solid fa-circle-check"></i> Green Flags</h4>
+                        <ul>
+                            <li>അക്കൗണ്ട് പ്രൈവറ്റ് ആക്കാനുള്ള എളുപ്പമുള്ള സൗകര്യം.</li>
+                            <li>സിങ്ക് ചെയ്ത കോൺടാക്റ്റുകൾ നീക്കം ചെയ്യാനുള്ള ഫീച്ചർ.</li>
+                        </ul>
+                    </div>
+                    <div class="flag-box red">
+                        <h4><i class="fa-solid fa-circle-exclamation"></i> Red Flags</h4>
+                        <ul>
+                            <li>മറ്റ് ആപ്പുകളിലെ നിങ്ങളുടെ വിവരങ്ങൾ ഫേസ്ബുക്കുമായി പങ്കിടുന്നു.</li>
+                            <li>ഗ്യാലറി അനുമതി നൽകിയാൽ എല്ലാ ചിത്രങ്ങളും സ്കാൻ ചെയ്തേക്കാം.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Loan Apps Tab Content -->
+                <div id="loans" class="tab-content">
+                    <div class="flag-box green">
+                        <h4><i class="fa-solid fa-circle-check"></i> Green Flags</h4>
+                        <ul>
+                            <li>RBI അല്ലെങ്കിൽ ബാങ്കിംഗ് ലൈസൻസ് വിവരങ്ങൾ വ്യക്തമാക്കുന്നു.</li>
+                            <li>സുതാര്യമായ പലിശ നിരക്കുകളും കൃത്യമായ തിരിച്ചടവ് കാലാവധിയും.</li>
+                        </ul>
+                    </div>
+                    <div class="flag-box red">
+                        <h4><i class="fa-solid fa-circle-exclamation"></i> Red Flags</h4>
+                        <ul>
+                            <li>കോൺടാക്റ്റ് ലിസ്റ്റും വ്യക്തിഗത ഫോട്ടോകളും ആവശ്യപ്പെടുന്നു.</li>
+                            <li>ഭീഷണിപ്പെടുത്തുന്ന രീതിയിലുള്ള കസ്റ്റമർ കെയർ സമീപനം.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Privacy Score Calculator -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: var(--pastel-pink); color: #E57373;"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h3 class="card-title">പ്രൈവസി സ്കോർ കാൽക്കുലേറ്റർ</h3>
+                </div>
+                <p style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-muted);">ഒരു ആപ്പ് നിങ്ങളിൽ നിന്ന് ആവശ്യപ്പെടുന്ന അനുമതികൾ താഴെ തിരഞ്ഞെടുക്കുക:</p>
+                <div class="calc-list">
+                    <label class="calc-item">
+                        <input type="checkbox" class="perm-check" value="25" onchange="updateScore()">
+                        <div class="calc-info">
+                            <h5>ലൊക്കേഷൻ (Location)</h5>
+                            <p>നിങ്ങൾ എവിടെയാണെന്ന് എപ്പോഴും നിരീക്ഷിക്കുന്നു</p>
+                        </div>
+                    </label>
+                    <label class="calc-item">
+                        <input type="checkbox" class="perm-check" value="25" onchange="updateScore()">
+                        <div class="calc-info">
+                            <h5>കോൺടാക്റ്റുകൾ (Contacts)</h5>
+                            <p>സുഹൃത്തുക്കളുടെ ഫോൺ നമ്പറുകൾ ചോർത്തുന്നു</p>
+                        </div>
+                    </label>
+                    <label class="calc-item">
+                        <input type="checkbox" class="perm-check" value="25" onchange="updateScore()">
+                        <div class="calc-info">
+                            <h5>എസ്.എം.എസ് (SMS)</h5>
+                            <p>ഒ.ടി.പി-കളും വ്യക്തിഗത സന്ദേശങ്ങളും വായിക്കുന്നു</p>
+                        </div>
+                    </label>
+                    <label class="calc-item">
+                        <input type="checkbox" class="perm-check" value="25" onchange="updateScore()">
+                        <div class="calc-info">
+                            <h5>ക്യാമറ (Camera)</h5>
+                            <p>അറിയാതെ ഫോട്ടോകളും വീഡിയോകളും എടുത്തേക്കാം</p>
+                        </div>
+                    </label>
+                </div>
+                <div class="score-box" id="scoreBox">
+                    <div class="score-num" id="scoreNum">100%</div>
+                    <div class="score-status" id="scoreStatus">സുരക്ഷിതമാണ്! ആശങ്കപ്പെടേണ്ടതില്ല.</div>
+                </div>
+            </div>
+
+            <!-- 3. Terms & Conditions Cheat Sheet -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: var(--pastel-yellow); color: #D4A373;"><i class="fa-solid fa-file-contract"></i></div>
+                    <h3 class="card-title">വായിക്കാതെ ഒപ്പിടരുത്!</h3>
+                </div>
+                <div class="trap-item">
+                    <h4>Google: വിവര ശേഖരണം</h4>
+                    <p>നിങ്ങൾ കാണുന്ന വീഡിയോകൾ, തിരയുന്ന കാര്യങ്ങൾ, വോയ്‌സ് റെക്കോർഡിംഗുകൾ എന്നിവ നിങ്ങളുടെ പ്രൊഫൈൽ മെച്ചപ്പെടുത്താനായി സ്ഥിരമായി സൂക്ഷിക്കുന്നു.</p>
+                </div>
+                <div class="trap-item">
+                    <h4>Instagram: ചിത്രങ്ങളുടെ ഉടമസ്ഥത</h4>
+                    <p>നിങ്ങൾ പോസ്റ്റ് ചെയ്യുന്ന ചിത്രങ്ങളുടെ റോയൽറ്റി-ഫ്രീ ലൈസൻസ് ഇൻസ്റ്റാഗ്രാമിന് ലഭിക്കുന്നു. അവ കമ്പനിയുടെ ആവശ്യങ്ങൾക്കായി ഉപയോഗിക്കാം.</p>
+                </div>
+                <div class="trap-item">
+                    <h4>മറഞ്ഞിരിക്കുന്ന വ്യവസ്ഥകൾ</h4>
+                    <p>പല സൗജന്യ ആപ്പുകളും ഭാവിയിൽ ഉപഭോക്താവിനെ അറിയിക്കാതെ നിയമപരമായ മാറ്റങ്ങൾ വരുത്താനുള്ള അവകാശം തങ്ങളിൽ നിലനിർത്തുന്നു.</p>
+                </div>
+            </div>
+
+            <!-- 4. Eye Health Guard -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: var(--pastel-mint); color: #4F9D69;"><i class="fa-solid fa-eye"></i></div>
+                    <h3 class="card-title">കണ്ണുകളുടെ സംരക്ഷണം (20-20-20)</h3>
+                </div>
+                <div class="eye-banner">
+                    <strong>20-20-20 നിയമം:</strong> ഓരോ 20 മിനിറ്റ് ഫോൺ ഉപയോഗത്തിന് ശേഷവും, 20 സെക്കൻഡ് നേരത്തേക്ക്, 20 അടി അകലെയുള്ള ഒരു വസ്തുവിലേക്ക് നോക്കുക. ഇത് കണ്ണിന്റെ ആയാസം കുറയ്ക്കുന്നു.
+                </div>
+                <button class="btn-action" onclick="triggerEyeToast()"><i class="fa-regular fa-clock"></i> ഇപ്പോൾ ഒരു ബ്രേക്ക് എടുക്കാം</button>
+            </div>
+
+            <!-- 5. Body Posture & Bedtime Shield -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: var(--pastel-blue); color: #4A90E2;"><i class="fa-solid fa-bed"></i></div>
+                    <h3 class="card-title">ശരീരഭംഗിയും നല്ല ഉറക്കവും</h3>
+                </div>
+                <div class="tips-list">
+                    <div class="tip-box">
+                        <div class="tip-icon"><i class="fa-solid fa-child"></i></div>
+                        <div class="tip-text">
+                            <h4>ടെക്സ്റ്റ് നെക്ക് (Text Neck) ഒഴിവാക്കാം</h4>
+                            <p>ഫോൺ ഉപയോഗിക്കുമ്പോൾ കഴുത്ത് കൂടുതൽ മുന്നോട്ട് വളയ്ക്കരുത്. ഫോൺ എപ്പോഴും നിങ്ങളുടെ കൺമുന്നിലെ ഉയരത്തിൽ പിടിക്കുക.</p>
+                        </div>
+                    </div>
+                    <div class="tip-box">
+                        <div class="tip-icon"><i class="fa-solid fa-moon"></i></div>
+                        <div class="tip-text">
+                            <h4>ബ്ലൂ ലൈറ്റ് ഫിൽട്ടർ (Bedtime Shield)</h4>
+                            <p>ഉറങ്ങുന്നതിന് ഒരു മണിക്കൂർ മുൻപെങ്കിലും ഫോണിലെ 'Night Shield' അല്ലെങ്കിൽ 'Blue Light Filter' ഓൺ ചെയ്യുക. ഇത് മികച്ച ഉറക്കം നൽകും.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Wi-Fi Safety & Headphone 60/60 Rule -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: var(--pastel-purple); color: #9B5DE5;"><i class="fa-solid fa-wifi"></i></div>
+                    <h3 class="card-title">വൈഫൈ & ഹെഡ്‌ഫോൺ സുരക്ഷ</h3>
+                </div>
+                <div class="wifi-accent">
+                    <strong>പബ്ലിക് വൈഫൈ റിസ്ക്:</strong> റെയിൽവേ സ്റ്റേഷനുകളിലെയും കഫേകളിലെയും സൗജന്യ വൈഫൈ വഴി ബാങ്ക് വിവരങ്ങളും പാസ്‌വേഡുകളും എളുപ്പത്തിൽ ചോർത്തപ്പെടാം. VPN ഉപയോഗിക്കുക.
+                </div>
+                <div class="tips-list">
+                    <div class="tip-box">
+                        <div class="tip-icon"><i class="fa-solid fa-headphones"></i></div>
+                        <div class="tip-text">
+                            <h4>60/60 നിയമം പാലിക്കുക</h4>
+                            <p>ഹെഡ്‌ഫോൺ ഉപയോഗിക്കുമ്പോൾ ശബ്ദം പരമാവധി 60%-ൽ കൂടരുത്. അതുപോലെ 60 മിനിറ്റിൽ കൂടുതൽ തുടർച്ചയായി കേൾക്കരുത്.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- /Pinterest Grid -->
+
+        <!-- Guarantee Footer -->
+        <footer>
+            <p><i class="fa-solid fa-user-shield"></i> 100% പ്രൈവസി ഗ്യാരണ്ടി: ഈ വെബ് ആപ്പ് നിങ്ങളുടെ ഒരു വിവരവും ശേഖരിക്കുന്നില്ല. പെർമിഷനുകൾ ആവശ്യമില്ല. നിങ്ങളുടെ സുരക്ഷയാണ് ഞങ്ങളുടെ ലക്ഷ്യം.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification Element -->
+    <div class="toast" id="eyeToast">
+        <i class="fa-solid fa-hourglass-start" style="color: #FFF2CC;"></i> 20 സെക്കൻഡ് ദൂരേക്ക് നോക്കൂ! നിങ്ങളുടെ കണ്ണുകൾ വിശ്രമിക്കട്ടെ.
+    </div>
+
+    <!-- Wireless Headphone Modal Popup -->
+    <div class="modal-overlay" id="headphoneModal">
+        <div class="modal">
+            <i class="fa-solid fa-headphones-simple"></i>
+            <h3>വയർലെസ്സ് ഓഡിയോ അലേർട്ട്!</h3>
+            <p>നിങ്ങൾ ബ്ലൂടൂത്ത് ഹെഡ്‌ഫോണുകൾ ഉപയോഗിക്കാറുണ്ടോ? ഉപയോഗിക്കാത്തപ്പോൾ ബ്ലൂടൂത്ത് ഓഫ് ചെയ്യുക. ഹാക്കർമാർ നിങ്ങളുടെ ഫോണിലേക്ക് കണക്ട് ചെയ്യുന്നത് തടയാൻ ഇത് സഹായിക്കും.</p>
+            <button class="btn-action" onclick="closeModal()">ശരി, മനസ്സിലായി</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Mobile App Safety Tabs logic
+        function switchTab(evt, tabId) {
+            const card = evt.currentTarget.closest('.card');
+            const tabButtons = card.querySelectorAll('.tab-btn');
+            const tabContents = card.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            evt.currentTarget.classList.add('active');
+            card.querySelector(`#${tabId}`).classList.add('active');
+        }
+
+        // 2. Privacy Score Calculator logic
+        function updateScore() {
+            const checkboxes = document.querySelectorAll('.perm-check');
+            let deduction = 0;
+            
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    deduction += parseInt(cb.value);
+                }
+            });
+
+            const finalScore = 100 - deduction;
+            const scoreNum = document.getElementById('scoreNum');
+            const scoreStatus = document.getElementById('scoreStatus');
+            const scoreBox = document.getElementById('scoreBox');
+
+            scoreNum.innerText = finalScore + "%";
+
+            // Dynamically change visual states & Malayalam messages based on score
+            if (finalScore === 100) {
+                scoreStatus.innerText = "സുരക്ഷിതമാണ്! ആശങ്കപ്പെടേണ്ടതില്ല.";
+                scoreBox.style.backgroundColor = "var(--pastel-blue)";
+            } else if (finalScore === 75) {
+                scoreStatus.innerText = "ശ്രദ്ധിക്കുക: പ്രൈവസി ചെറുതായി ബാധിക്കപ്പെട്ടു.";
+                scoreBox.style.backgroundColor = "var(--pastel-yellow)";
+            } else if (finalScore === 50) {
+                scoreStatus.innerText = "അപകടസാധ്യത! കൂടുതൽ അനുമതികൾ നൽകിയിരിക്കുന്നു.";
+                scoreBox.style.backgroundColor = "var(--pastel-pink)";
+            } else if (finalScore <= 25) {
+                scoreStatus.innerText = "തീർത്തും സുരക്ഷിതമല്ല! വിവരങ്ങൾ ചോരാൻ സാധ്യതയേറി.";
+                scoreBox.style.backgroundColor = "#FFD6D6";
+            }
+        }
+
+        // 4. Eye Health Guard Toast logic
+        function triggerEyeToast() {
+            const toast = document.getElementById('eyeToast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // 6. Wireless Headphone Modal logic (Trigger on load)
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('headphoneModal').classList.add('active');
+            }, 800);
+        });
+
+        function closeModal() {
+            document.getElementById('headphoneModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
