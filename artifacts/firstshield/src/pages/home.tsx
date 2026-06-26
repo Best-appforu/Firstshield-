@@ -1200,7 +1200,289 @@ function ToSCard() {
   );
 }
 
-// ── Card: Privacy Action Plan ────────────────────────────────────────────────
+// ── Card: 2-Minute Quick Wins ────────────────────────────────────────────────
+const QUICK_WINS = [
+  {
+    emoji:"🔒", title:"Lock your phone screen",
+    desc:"Set a 6-digit PIN or fingerprint lock. This one step stops 90% of phone theft risks.",
+    time:"30 sec", color:"#7D52B3", bg:"#F3E8FF",
+  },
+  {
+    emoji:"👁️", title:"Check which apps can see your location",
+    desc:'Go to Settings → Privacy → Location. Turn any social app from "Always" to "Never" or "While Using".',
+    time:"1 min", color:"#E57373", bg:"#FFE5EC",
+  },
+  {
+    emoji:"🔔", title:"Turn off notification previews",
+    desc:"Stop your messages from showing on the lock screen for anyone nearby to read.",
+    time:"30 sec", color:"#4A90E2", bg:"#E8F0FE",
+  },
+  {
+    emoji:"🛜", title:"Use mobile data on public Wi-Fi",
+    desc:"Coffee shop or mall Wi-Fi can be faked. When in doubt, switch to your mobile data instead.",
+    time:"5 sec", color:"#16A34A", bg:"#DCFCE7",
+  },
+  {
+    emoji:"🧹", title:"Delete apps you haven't used in 30 days",
+    desc:"Old unused apps still run in the background and collect data. Delete them — you can always reinstall.",
+    time:"2 min", color:"#D97706", bg:"#FFF2CC",
+  },
+];
+
+function QuickWinsCard() {
+  const [checked, setChecked] = useState<Set<number>>(new Set());
+  const [celebrated, setCelebrated] = useState(false);
+  const allDone = checked.size === QUICK_WINS.length;
+
+  const toggle = (i: number) => {
+    sfx.click();
+    setChecked(prev => {
+      const n = new Set(prev);
+      n.has(i) ? n.delete(i) : n.add(i);
+      if (n.size === QUICK_WINS.length) { sfx.success(); setCelebrated(true); }
+      return n;
+    });
+  };
+
+  return (
+    <BaseCard icon={Zap} iconBg="bg-[#FFF2CC]" iconColor="#D4A373" title="2-Minute Quick Wins" accent="#D4A373">
+      {/* Friendly intro */}
+      <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#FFF9F0] border border-[#FDE68A]/60 mb-4">
+        <svg viewBox="0 0 50 50" className="w-10 h-10 shrink-0">
+          <circle cx="25" cy="25" r="22" fill="#FDE68A"/>
+          <ellipse cx="18" cy="22" rx="3.5" ry="4" fill="white"/>
+          <ellipse cx="32" cy="22" rx="3.5" ry="4" fill="white"/>
+          <circle cx="18" cy="23" r="2" fill="#3D3A45"/>
+          <circle cx="32" cy="23" r="2" fill="#3D3A45"/>
+          <path d="M17 34 Q25 40 33 34" stroke="#3D3A45" strokeWidth="2" fill="none" strokeLinecap="round"/>
+          <circle cx="19" cy="22" r="0.8" fill="white"/>
+          <circle cx="33" cy="22" r="0.8" fill="white"/>
+        </svg>
+        <div>
+          <p className="font-bold text-sm text-[#3D3A45]">You're already doing great! 🌟</p>
+          <p className="text-xs text-[#6C6775] leading-snug mt-0.5">
+            These 5 simple steps take under 2 minutes total. Tick each one off and feel instantly more secure.
+          </p>
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex-1 h-2.5 bg-[#EDE7DE] rounded-full overflow-hidden">
+          <motion.div className="h-full rounded-full bg-gradient-to-r from-[#D4A373] to-[#62B685]"
+            animate={{ width:`${(checked.size/QUICK_WINS.length)*100}%` }}
+            transition={{ duration:0.5, ease:"easeOut" }} />
+        </div>
+        <span className="text-xs font-bold text-[#6C6775] shrink-0">{checked.size}/{QUICK_WINS.length}</span>
+      </div>
+
+      {/* Win items */}
+      <div className="space-y-2.5 mb-4">
+        {QUICK_WINS.map((w,i) => {
+          const done = checked.has(i);
+          return (
+            <motion.button key={i} onClick={() => toggle(i)} whileTap={{ scale:0.97 }}
+              className="w-full flex items-start gap-3 p-3.5 rounded-2xl text-left transition-all duration-200"
+              style={{ background: done ? w.bg : "#FCF9F5", border:`1.5px solid ${done ? w.color+"55" : "#EDE7DE"}` }}>
+              {/* Checkbox */}
+              <motion.div animate={{ scale: done ? [1,1.3,1] : 1 }} transition={{ duration:0.3 }}
+                className="mt-0.5 h-6 w-6 rounded-full shrink-0 flex items-center justify-center border-2 transition-all"
+                style={{ borderColor: done ? w.color : "#C4B5FD", background: done ? w.color : "white" }}>
+                {done && <span className="text-white text-xs font-bold">✓</span>}
+              </motion.div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-base">{w.emoji}</span>
+                  <span className={`text-sm font-bold ${done ? "line-through opacity-60" : "text-[#3D3A45]"}`}>{w.title}</span>
+                  <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0"
+                    style={{ background:w.bg, color:w.color }}>⏱ {w.time}</span>
+                </div>
+                <p className="text-xs text-[#6C6775] leading-snug">{w.desc}</p>
+              </div>
+            </motion.button>
+          );
+        })}
+      </div>
+
+      {/* Celebration */}
+      <AnimatePresence>
+        {allDone && (
+          <motion.div initial={{ opacity:0, y:10, scale:0.95 }} animate={{ opacity:1, y:0, scale:1 }}
+            className="text-center p-4 rounded-2xl bg-gradient-to-br from-[#EAF7ED] to-[#F3E8FF] border border-[#62B685]/30">
+            <div className="text-3xl mb-1">🎉</div>
+            <p className="font-bold text-[#2E5A44]">Amazing! You're now safer than 80% of phone users.</p>
+            <p className="text-xs text-[#6C6775] mt-1">Share FirstShield with a friend so they can do this too!</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </BaseCard>
+  );
+}
+
+// ── Card: Digital Health Quiz ─────────────────────────────────────────────────
+const QUIZ = [
+  {
+    q:"How often do you check your phone at night after 10 PM?",
+    opts:["Rarely or never 😴","Sometimes on weekends 🌙","Most nights 📱","Every night before sleeping 😰"],
+    scores:[10,6,3,0],
+    tip:"Phones before bed block melatonin and steal 1–2 hours of deep sleep. Try charging your phone outside the bedroom!",
+  },
+  {
+    q:"Do you use the same password on multiple apps?",
+    opts:["No — I use different passwords 🔐","Sometimes — for less important apps 🤔","Yes — it's easier to remember 😅","Yes — same password for everything 😬"],
+    scores:[10,6,3,0],
+    tip:'Use a passphrase instead — e.g. "Mango!Rain#Tree2024" — easy to remember but hard to crack!',
+  },
+  {
+    q:"How long do you spend on your phone daily?",
+    opts:["Under 2 hours ✅","2–4 hours — mostly work 💼","4–6 hours 📊","More than 6 hours 😳"],
+    scores:[10,7,4,0],
+    tip:"Try the 20-minute rule — every 20 minutes of phone use, take a 5-minute break. Your eyes and brain will thank you!",
+  },
+  {
+    q:"Do you read app permissions before installing?",
+    opts:["Yes, always 🔍","Sometimes if it looks suspicious 🤨","Rarely — I just tap Accept 😅","Never — I install and forget 🙈"],
+    scores:[10,6,2,0],
+    tip:'Next time you install an app, ask: "Does a torch app really need my contacts?" If the answer is no — deny it!',
+  },
+  {
+    q:"Do you have a PIN/fingerprint lock on your phone?",
+    opts:["Yes, 6-digit PIN + fingerprint 🔒","Yes, fingerprint only 👆","Yes, simple 4-digit PIN 🔑","No lock — too inconvenient 🚪"],
+    scores:[10,8,5,0],
+    tip:"A 6-digit PIN + fingerprint is the sweet spot. It takes 0.5 seconds to unlock but adds years of protection!",
+  },
+];
+
+function DigitalHealthQuizCard() {
+  const [step, setStep] = useState<number>(-1); // -1 = intro
+  const [answers, setAnswers] = useState<number[]>([]);
+  const [done, setDone] = useState(false);
+
+  const score = answers.reduce((a,b) => a+b, 0);
+  const maxScore = QUIZ.length * 10;
+  const pct = Math.round((score / maxScore) * 100);
+
+  const { label, emoji, color, bg, msg } = pct >= 80
+    ? { label:"Digital Champion", emoji:"🏆", color:"#16A34A", bg:"#EAF7ED",
+        msg:"You have excellent digital habits! Keep it up and share your knowledge with friends and family." }
+    : pct >= 55
+    ? { label:"Safety Aware", emoji:"🛡️", color:"#4A90E2", bg:"#E8F0FE",
+        msg:"You're on the right track! A few small changes will make a big difference to your privacy and health." }
+    : pct >= 30
+    ? { label:"Getting Started", emoji:"🌱", color:"#D97706", bg:"#FFF2CC",
+        msg:"Every expert was once a beginner. The fact you're here means you care — and that's the most important step!" }
+    : { label:"Room to Grow", emoji:"💪", color:"#7D52B3", bg:"#F3E8FF",
+        msg:"No judgment at all! You now know what to improve. Start with just one Quick Win from the card above." };
+
+  const answer = (score: number) => {
+    sfx.click();
+    const next = [...answers, score];
+    setAnswers(next);
+    if (next.length === QUIZ.length) { sfx.success(); setDone(true); }
+    else setStep(s => s+1);
+  };
+
+  const reset = () => { setStep(-1); setAnswers([]); setDone(false); sfx.click(); };
+
+  const wrongTip = done && answers.length > 0
+    ? QUIZ[answers.indexOf(Math.min(...answers))]?.tip
+    : null;
+
+  return (
+    <BaseCard icon={Heart} iconBg="bg-[#FFE5EC]" iconColor="#E57373" title="Digital Health Check" accent="#E57373">
+      <AnimatePresence mode="wait">
+
+        {/* Intro */}
+        {step === -1 && !done && (
+          <motion.div key="intro" initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}>
+            <div className="text-center py-2">
+              <div className="text-6xl mb-3">🧘</div>
+              <p className="font-bold text-[#3D3A45] mb-2">How healthy are your digital habits?</p>
+              <p className="text-xs text-[#6C6775] leading-relaxed mb-5">
+                5 friendly questions. No right or wrong answers — just honest ones. Takes under a minute!
+              </p>
+              <div className="flex gap-2 justify-center flex-wrap mb-5">
+                {["📱 Phone Use","🔐 Passwords","👁 Privacy","💤 Sleep","🛡 Security"].map((tag,i) => (
+                  <span key={i} className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#FFE5EC] text-[#E57373]">{tag}</span>
+                ))}
+              </div>
+              <motion.button whileTap={{ scale:0.95 }} onClick={() => { sfx.click(); setStep(0); }}
+                className="px-8 py-3 rounded-2xl text-white font-bold text-sm shadow-md"
+                style={{ background:"linear-gradient(135deg,#E57373,#7D52B3)" }}>
+                Start My Health Check ✨
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Question */}
+        {step >= 0 && !done && (
+          <motion.div key={`q${step}`} initial={{ opacity:0, x:20 }} animate={{ opacity:1, x:0 }} exit={{ opacity:0, x:-20 }}>
+            {/* Progress dots */}
+            <div className="flex gap-1.5 justify-center mb-4">
+              {QUIZ.map((_,i) => (
+                <div key={i} className="h-2 rounded-full transition-all duration-300"
+                  style={{ width: i===step ? 20 : 8, background: i<step ? "#62B685" : i===step ? "#E57373" : "#EDE7DE" }} />
+              ))}
+            </div>
+            <p className="text-xs font-bold text-[#6C6775] uppercase tracking-wider mb-2">Question {step+1} of {QUIZ.length}</p>
+            <p className="font-bold text-sm text-[#3D3A45] leading-snug mb-4">{QUIZ[step].q}</p>
+            <div className="space-y-2">
+              {QUIZ[step].opts.map((opt,i) => (
+                <motion.button key={i} whileTap={{ scale:0.97 }} onClick={() => answer(QUIZ[step].scores[i])}
+                  className="w-full text-left px-4 py-3 rounded-2xl text-sm border border-[#EDE7DE] bg-[#FCF9F5] hover:border-[#E57373]/50 hover:bg-[#FFE5EC]/30 transition-all font-medium text-[#3D3A45]">
+                  {opt}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Result */}
+        {done && (
+          <motion.div key="result" initial={{ opacity:0, scale:0.95 }} animate={{ opacity:1, scale:1 }}>
+            {/* Score ring */}
+            <div className="flex flex-col items-center py-3 mb-4">
+              <div className="relative w-28 h-28">
+                <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#EDE7DE" strokeWidth="10"/>
+                  <motion.circle cx="50" cy="50" r="42" fill="none" strokeWidth="10" strokeLinecap="round"
+                    stroke={color} strokeDasharray={`${2*Math.PI*42}`}
+                    initial={{ strokeDashoffset: 2*Math.PI*42 }}
+                    animate={{ strokeDashoffset: 2*Math.PI*42*(1-pct/100) }}
+                    transition={{ duration:1.2, ease:"easeOut" }}/>
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-3xl font-heading font-bold" style={{ color }}>{pct}%</span>
+                  <span className="text-[10px] text-[#6C6775] font-bold">score</span>
+                </div>
+              </div>
+              <div className="text-3xl mt-2">{emoji}</div>
+              <p className="font-heading font-bold text-lg mt-1" style={{ color }}>{label}</p>
+            </div>
+            {/* Message */}
+            <div className="p-3.5 rounded-2xl mb-3" style={{ background:bg }}>
+              <p className="text-xs text-[#3D3A45] leading-relaxed">{msg}</p>
+            </div>
+            {/* Best tip */}
+            {wrongTip && (
+              <div className="p-3.5 rounded-2xl bg-[#FFF9F0] border border-[#FDE68A]/60 mb-4">
+                <p className="text-[10px] font-bold text-[#D97706] uppercase tracking-wider mb-1">💡 Your top tip to improve:</p>
+                <p className="text-xs text-[#3D3A45] leading-relaxed">{wrongTip}</p>
+              </div>
+            )}
+            <button onClick={reset}
+              className="w-full py-2.5 rounded-2xl text-xs font-bold border border-[#EDE7DE] text-[#6C6775] hover:bg-[#FCF9F5] transition-colors">
+              Retake Quiz 🔄
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </BaseCard>
+  );
+}
+
+// ── Card: Privacy Action Plan ─────────────────────────────────────────────────
 const PERMISSIONS = [
   {
     id:"location", emoji:"📍", name:"Location", color:"#E57373", bg:"#FFE5EC", light:"#FFF0F3",
@@ -1487,9 +1769,9 @@ function PrivacyActionCard() {
   const allDone = steps.every((_,i) => done.has(i));
 
   return (
-    <BaseCard icon={ShieldAlert} iconBg="bg-[#FFE5EC]" iconColor="#E57373" title="Turn Off Spy Permissions" accent="#E57373">
+    <BaseCard icon={ShieldAlert} iconBg="bg-[#FFE5EC]" iconColor="#E57373" title="Take Control of Your Privacy" accent="#E57373">
       <p className="text-xs text-[#6C6775] mb-4 leading-relaxed">
-        Follow these steps to stop apps from spying on you. Tap each step as you complete it ✅
+        You're in charge of your phone, not the apps. Tap each step as you complete it ✅
       </p>
 
       {/* Permission tabs */}
@@ -1656,7 +1938,7 @@ export default function Home() {
       {/* Grid */}
       <motion.div variants={stagger} initial="hidden" animate="show"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-        {[AppSafetyCard, AppPermissionCard, ToSCard, PrivacyActionCard, PrivacyScoreCard, EyeHealthCard, PostureCard, SleepCard, NightTimeCard, WifiSafetyCard, SaferAppsCard].map((Card,i) => (
+        {[QuickWinsCard, DigitalHealthQuizCard, AppSafetyCard, AppPermissionCard, ToSCard, PrivacyActionCard, PrivacyScoreCard, EyeHealthCard, PostureCard, SleepCard, NightTimeCard, WifiSafetyCard, SaferAppsCard].map((Card,i) => (
           <motion.div key={i} variants={rise}><Card /></motion.div>
         ))}
       </motion.div>
