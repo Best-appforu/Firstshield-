@@ -1200,6 +1200,102 @@ function ToSCard() {
   );
 }
 
+// ── Card: Privacy Architecture (100% Local) ──────────────────────────────────
+const HOW_IT_WORKS = [
+  {
+    emoji:"🧠", title:"Everything lives in the app",
+    desc:"All the permission data, ToS ratings, safety tips, and health guides are written directly into this app's code. Nothing is fetched from the internet.",
+    color:"#7D52B3", bg:"#F3E8FF",
+  },
+  {
+    emoji:"🚫", title:"Zero network requests from your data",
+    desc:"When you search an app, tick a checklist, or take the quiz — that action stays entirely on your screen. No button sends anything anywhere.",
+    color:"#16A34A", bg:"#DCFCE7",
+  },
+  {
+    emoji:"🔇", title:"No microphone, camera, or location needed",
+    desc:"Open your phone's Settings and check — FirstShield requests zero permissions. It cannot and does not access any sensor on your device.",
+    color:"#4A90E2", bg:"#E8F0FE",
+  },
+  {
+    emoji:"🍪", title:"No cookies. No tracking. No ads.",
+    desc:"There is no login, no account, no ad system, and no analytics SDK anywhere in this app. Your usage patterns are invisible to us — because we never see them.",
+    color:"#D97706", bg:"#FFF2CC",
+  },
+  {
+    emoji:"📦", title:"Works fully offline",
+    desc:"Once the page has loaded, you can turn off your internet and every feature still works perfectly. The app needs no connection to function.",
+    color:"#E57373", bg:"#FFE5EC",
+  },
+  {
+    emoji:"🔍", title:"Open for anyone to verify",
+    desc:"Every piece of logic in this app is readable JavaScript. There is no hidden server, no secret endpoint, and no background process. What you see is what runs.",
+    color:"#62B685", bg:"#EAF7ED",
+  },
+];
+
+function PrivacyArchitectureCard() {
+  const [expanded, setExpanded] = useState<number|null>(null);
+  return (
+    <BaseCard icon={Lock} iconBg="bg-[#EAF7ED]" iconColor="#16A34A" title="100% Local — How This App Works" accent="#16A34A">
+      {/* Trust banner */}
+      <div className="flex items-start gap-3 p-3.5 rounded-2xl mb-5 bg-gradient-to-r from-[#EAF7ED] to-[#E8F0FE] border border-[#62B685]/30">
+        <svg viewBox="0 0 52 52" className="w-12 h-12 shrink-0">
+          <circle cx="26" cy="26" r="24" fill="#EAF7ED" stroke="#62B685" strokeWidth="2"/>
+          {/* Shield body */}
+          <path d="M26 8 L42 15 L42 30 Q42 42 26 48 Q10 42 10 30 L10 15Z" fill="#62B685"/>
+          <path d="M26 13 L37 18.5 L37 30 Q37 39 26 44 Q15 39 15 30 L15 18.5Z" fill="#86EFAC" opacity="0.5"/>
+          {/* Tick */}
+          <path d="M19 28 L24 33 L33 22" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <div>
+          <p className="font-bold text-sm text-[#2E5A44]">Your data never leaves your device</p>
+          <p className="text-xs text-[#4A7A60] leading-snug mt-0.5">
+            FirstShield is a read-only guide. It teaches you — it does not collect from you. Every scan, quiz, and checklist runs entirely in your browser's memory and is deleted the moment you close the tab.
+          </p>
+        </div>
+      </div>
+
+      {/* 6 points — tap to expand */}
+      <p className="text-[10px] font-bold text-[#6C6775] uppercase tracking-wider mb-3">Tap any point to learn more:</p>
+      <div className="space-y-2">
+        {HOW_IT_WORKS.map((h,i) => {
+          const open = expanded === i;
+          return (
+            <motion.div key={i} layout>
+              <button onClick={() => { setExpanded(open ? null : i); sfx.click(); }}
+                className="w-full flex items-center gap-3 p-3 rounded-2xl text-left transition-all duration-200"
+                style={{ background: open ? h.bg : "#FCF9F5", border:`1.5px solid ${open ? h.color+"55" : "#EDE7DE"}` }}>
+                <span className="text-xl shrink-0">{h.emoji}</span>
+                <span className="flex-1 text-sm font-bold text-[#3D3A45]">{h.title}</span>
+                <motion.span animate={{ rotate: open ? 90 : 0 }} className="text-[#6C6775] text-base shrink-0">›</motion.span>
+              </button>
+              <AnimatePresence>
+                {open && (
+                  <motion.div initial={{ opacity:0, height:0 }} animate={{ opacity:1, height:"auto" }} exit={{ opacity:0, height:0 }}
+                    className="overflow-hidden">
+                    <div className="px-4 pt-2 pb-3 text-xs text-[#3D3A45] leading-relaxed rounded-b-2xl -mt-2"
+                      style={{ background: h.bg, borderLeft:`3px solid ${h.color}`, marginLeft:"8px" }}>
+                      {h.desc}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Bottom seal */}
+      <div className="mt-5 flex items-center justify-center gap-2 py-3 rounded-2xl"
+        style={{ background:"linear-gradient(135deg,#EAF7ED,#E8F0FE)", border:"1.5px solid #62B685" }}>
+        <CheckCircle2 className="h-4 w-4 text-[#16A34A]"/>
+        <span className="text-xs font-bold text-[#2E5A44]">No API calls · No accounts · No ads · No tracking · Works offline</span>
+      </div>
+    </BaseCard>
+  );
+}
+
 // ── Card: 2-Minute Quick Wins ────────────────────────────────────────────────
 const QUICK_WINS = [
   {
@@ -1938,17 +2034,43 @@ export default function Home() {
       {/* Grid */}
       <motion.div variants={stagger} initial="hidden" animate="show"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-        {[QuickWinsCard, DigitalHealthQuizCard, AppSafetyCard, AppPermissionCard, ToSCard, PrivacyActionCard, PrivacyScoreCard, EyeHealthCard, PostureCard, SleepCard, NightTimeCard, WifiSafetyCard, SaferAppsCard].map((Card,i) => (
+        {[PrivacyArchitectureCard, QuickWinsCard, DigitalHealthQuizCard, AppSafetyCard, AppPermissionCard, ToSCard, PrivacyActionCard, PrivacyScoreCard, EyeHealthCard, PostureCard, SleepCard, NightTimeCard, WifiSafetyCard, SaferAppsCard].map((Card,i) => (
           <motion.div key={i} variants={rise}><Card /></motion.div>
         ))}
       </motion.div>
 
       {/* Footer */}
-      <div className="bg-[#EAF7ED] border-t border-[#C8E6C9] py-8">
+      <div className="border-t border-[#C8E6C9] py-10" style={{ background:"linear-gradient(135deg,#EAF7ED,#E8F0FE)" }}>
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="font-bold text-[#2E5A44] flex items-center justify-center gap-2 flex-wrap text-sm">
-            <Shield className="h-5 w-5 text-[#62B685]" />
-            100% Privacy Guarantee — This app collects zero data. No permissions required. Your safety is our only goal.
+          {/* Big shield */}
+          <div className="flex justify-center mb-4">
+            <svg viewBox="0 0 72 80" className="w-14 h-14">
+              <path d="M36 4 L64 16 L64 44 Q64 64 36 76 Q8 64 8 44 L8 16Z" fill="#62B685"/>
+              <path d="M36 10 L58 20 L58 44 Q58 60 36 70 Q14 60 14 44 L14 20Z" fill="#86EFAC" opacity="0.4"/>
+              <path d="M24 38 L32 46 L48 28" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h3 className="font-heading font-bold text-xl text-[#2E5A44] mb-1">FirstShield Privacy Guarantee</h3>
+          <p className="text-sm text-[#4A7A60] mb-5 max-w-lg mx-auto">
+            This app is a 100% local, read-only guide. It runs entirely inside your browser — no server, no database, no account.
+          </p>
+          {/* 5 seals */}
+          <div className="flex flex-wrap justify-center gap-2 mb-5">
+            {[
+              { icon:"🚫", text:"No data collected" },
+              { icon:"📡", text:"No network calls" },
+              { icon:"🔐", text:"No permissions needed" },
+              { icon:"🍪", text:"No cookies or tracking" },
+              { icon:"📵", text:"Works offline" },
+            ].map((s,i) => (
+              <span key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-white/70 text-[#2E5A44] border border-[#62B685]/40">
+                {s.icon} {s.text}
+              </span>
+            ))}
+          </div>
+          <p className="text-[11px] text-[#6C6775]">
+            All permission data, ToS ratings, and safety guides are hardcoded inside this app's JavaScript bundle.<br/>
+            No query you make is ever transmitted — not even anonymously. Your device is the only computer involved.
           </p>
         </div>
       </div>
