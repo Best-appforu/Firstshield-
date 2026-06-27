@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F0FD"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="28dp"
+        android:paddingTop="60dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚠️"
+            android:textSize="56sp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- App name / title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="App Permission Alert"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#3D3A45"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Privacy rating -->
+        <TextView
+            android:id="@+id/tvRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔴 HIGH RISK"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Permissions box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#EEEAF8"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔐 Permissions requested:"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#4A2480"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tvPermissions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Loading..."
+                android:textSize="13sp"
+                android:textColor="#5A4070"
+                android:lineSpacingMultiplier="1.5"/>
+        </LinearLayout>
+
+        <!-- Trackers box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#FFEEF2"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/tvTrackers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Checking trackers..."
+                android:textSize="13sp"
+                android:textColor="#8B2020"
+                android:lineSpacingMultiplier="1.4"/>
+        </LinearLayout>
+
+        <!-- Manage permissions — opens Android app settings (local) -->
+        <Button
+            android:id="@+id/btnManagePermissions"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Review App Permissions ⚙"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:backgroundTint="#7D52B3"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Always-visible dismiss — never block the user -->
+        <Button
+            android:id="@+id/btnDismiss"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="✕  Close"
+            android:textSize="15sp"
+            android:backgroundTint="#EEEAF8"
+            android:textColor="#4A2480"/>
+
+    </LinearLayout>
+</ScrollView>

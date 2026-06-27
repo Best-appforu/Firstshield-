@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="#F0EDF8F5">
+
+    <!-- Eye icon -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="👁"
+        android:textSize="72sp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eye Rest Time!"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#2E5A44"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You've been on your screen for 20 minutes."
+        android:textSize="15sp"
+        android:textColor="#4A7A60"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- 20-20-20 Rule Box -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#DDEEE8"
+        android:layout_marginBottom="28dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The 20-20-20 Rule"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#2E5A44"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👀  Look at something 20 feet away"
+            android:textSize="14sp"
+            android:textColor="#3D5A4E"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⏱  For the next 20 seconds"
+            android:textSize="14sp"
+            android:textColor="#3D5A4E"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="😌  Blink slowly to refresh your eyes"
+            android:textSize="14sp"
+            android:textColor="#3D5A4E"/>
+    </LinearLayout>
+
+    <!-- Countdown -->
+    <TextView
+        android:id="@+id/tvCountdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20s"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:textColor="#62B685"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Dismiss button — always visible and easy to reach -->
+    <Button
+        android:id="@+id/btnDismiss"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Got it — I'll look away now"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="#62B685"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>

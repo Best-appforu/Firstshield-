@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Core permissions — all local, no network access -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission"
+        xmlns:tools="http://schemas.android.com/tools"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
+        android:minSdkVersion="31"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+
+    <!-- Explicitly NO INTERNET permission — data stays local -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FirstShield">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Transparent overlay host activities -->
+        <activity
+            android:name=".overlays.EyeCareOverlayActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent"/>
+        <activity
+            android:name=".overlays.ScreenTimeLimitOverlayActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent"/>
+        <activity
+            android:name=".overlays.HeadphoneAlertOverlayActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent"/>
+        <activity
+            android:name=".overlays.PermissionAlertOverlayActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent"/>
+
+        <!-- Master foreground service -->
+        <service
+            android:name=".services.FirstShieldMainService"
+            android:exported="false"
+            android:foregroundServiceType="health"/>
+
+        <!-- Eye care 20-20-20 timer -->
+        <service
+            android:name=".services.EyeCareService"
+            android:exported="false"
+            android:foregroundServiceType="health"/>
+
+        <!-- Daily screen time tracker -->
+        <service
+            android:name=".services.ScreenTimeService"
+            android:exported="false"
+            android:foregroundServiceType="health"/>
+
+        <!-- Bluetooth/headphone state monitor -->
+        <service
+            android:name=".services.HeadphoneMonitorService"
+            android:exported="false"
+            android:foregroundServiceType="health"/>
+
+        <!-- App scanner background service -->
+        <service
+            android:name=".services.AppScannerService"
+            android:exported="false"
+            android:foregroundServiceType="health"/>
+
+        <!-- Auto-start after reboot -->
+        <receiver
+            android:name=".receivers.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- App install/uninstall monitor -->
+        <receiver
+            android:name=".receivers.AppInstallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>
