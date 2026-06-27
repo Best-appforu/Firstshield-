@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FirstShield launcher icon — foreground layer.
+    Drawn on a 108×108dp canvas (adaptive icon spec).
+    Safe zone: 18dp inset on all sides (72×72dp inner area).
+    Shield + checkmark are centered within the safe zone.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer soft glow behind the shield (semi-transparent white, slightly offset) -->
+    <path
+        android:fillColor="#28FFFFFF"
+        android:pathData="M54,21 L29,33 L29,57 Q29,77 54,89 Q79,77 79,57 L79,33 Z"/>
+
+    <!-- Shield body — solid white -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,24 L31,35 L31,57 Q31,76 54,87 Q77,76 77,57 L77,35 Z"/>
+
+    <!-- Inner shield surface — very light purple tint for subtle depth -->
+    <path
+        android:fillColor="#F0E8FF"
+        android:pathData="M54,31 L38,40 L38,57 Q38,70 54,79 Q70,70 70,57 L70,40 Z"/>
+
+    <!-- Bold checkmark — teal/green accent, round caps for softness -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#4ECDC4"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M42,56 L51,65 L68,46"/>
+
+</vector>

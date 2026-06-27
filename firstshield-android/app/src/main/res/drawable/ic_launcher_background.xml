@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FirstShield launcher icon — background layer.
+    Rich purple-to-indigo gradient (top-left → bottom-right).
+    minSdk 26 supports gradient fills natively.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:startColor="#7D52B3"
+        android:centerColor="#6240A0"
+        android:endColor="#432B82"
+        android:angle="135"/>
+</shape>
