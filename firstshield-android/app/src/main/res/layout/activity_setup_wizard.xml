@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@color/bg_main">
 
-    <!-- Step indicator dots -->
+    <!-- Step indicator — 6 dots (steps 0..5) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,33 +34,24 @@
             android:layout_width="10dp" android:layout_height="10dp"
             android:layout_marginHorizontal="5dp"
             android:background="@drawable/dot_inactive"/>
+        <View android:id="@+id/dot5"
+            android:layout_width="10dp" android:layout_height="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/dot_inactive"/>
     </LinearLayout>
 
-    <!-- Step content — only one visible at a time -->
+    <!-- Step content — only one panel visible at a time -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <!-- Step 0: Welcome -->
-        <include android:id="@+id/panelWelcome" layout="@layout/wizard_step_welcome"
-            android:visibility="visible"/>
-
-        <!-- Step 1: Overlay permission -->
-        <include android:id="@+id/panelOverlay" layout="@layout/wizard_step_overlay"
-            android:visibility="gone"/>
-
-        <!-- Step 2: Usage access -->
-        <include android:id="@+id/panelUsage" layout="@layout/wizard_step_usage"
-            android:visibility="gone"/>
-
-        <!-- Step 3: Notifications -->
-        <include android:id="@+id/panelNotif" layout="@layout/wizard_step_notif"
-            android:visibility="gone"/>
-
-        <!-- Step 4: Done -->
-        <include android:id="@+id/panelDone" layout="@layout/wizard_step_done"
-            android:visibility="gone"/>
+        <include android:id="@+id/panelWelcome"  layout="@layout/wizard_step_welcome"  android:visibility="visible"/>
+        <include android:id="@+id/panelOverlay"  layout="@layout/wizard_step_overlay"  android:visibility="gone"/>
+        <include android:id="@+id/panelUsage"    layout="@layout/wizard_step_usage"    android:visibility="gone"/>
+        <include android:id="@+id/panelNotif"    layout="@layout/wizard_step_notif"    android:visibility="gone"/>
+        <include android:id="@+id/panelBattery"  layout="@layout/wizard_step_battery"  android:visibility="gone"/>
+        <include android:id="@+id/panelDone"     layout="@layout/wizard_step_done"     android:visibility="gone"/>
 
     </FrameLayout>
 

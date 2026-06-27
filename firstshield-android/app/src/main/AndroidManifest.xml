@@ -17,6 +17,7 @@
         android:minSdkVersion="31"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
 
     <!-- Explicitly NO INTERNET permission — data stays local -->
 
@@ -28,8 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirstShield">
 
+        <!-- Setup wizard is the launcher — redirects to MainActivity after first setup -->
         <activity
-            android:name=".MainActivity"
+            android:name=".SetupWizardActivity"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
@@ -37,6 +39,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:launchMode="singleTop"/>
 
         <!-- Transparent overlay host activities -->
         <activity

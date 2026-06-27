@@ -54,6 +54,11 @@ object Prefs {
         get() = _sp!!.getBoolean("app_scanner_enabled", true)
         set(v) { _sp!!.edit().putBoolean("app_scanner_enabled", v).apply() }
 
+    // Setup wizard — false on first install, set to true after wizard completes
+    var setupComplete: Boolean
+        get() = _sp!!.getBoolean("setup_complete", false)
+        set(v) { _sp!!.edit().putBoolean("setup_complete", v).apply() }
+
     private var _sp: SharedPreferences? = null
 
     fun init(ctx: Context) {
