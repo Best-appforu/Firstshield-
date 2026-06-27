@@ -644,11 +644,12 @@ function SleepCard() {
 }
 
 // ── Card 7: Wi-Fi Safety ──────────────────────────────────────────────────────
-const MYTHS = [
-  { myth:"Wi-Fi causes cancer",           fact:"Non-ionizing radiation cannot damage DNA — proven safe by WHO" },
-  { myth:"Router must be far from bed",   fact:"Signal drops with distance but remains safe at any room distance" },
-  { myth:"5G is dangerous",               fact:"5G uses radio waves — same physics as 4G, rigorously tested" },
-  { myth:"Airplane mode cures radiation", fact:"Airplane mode just disables radios — only needed on actual flights" },
+const WIFI_WARNINGS = [
+  { icon:"🌐", title:"Public Wi-Fi is never private", desc:"Anyone on the same network can intercept your traffic. Avoid logging into accounts on café, hotel, or airport Wi-Fi.", color:"bg-[#FFF5F5] border-[#FECACA] text-[#C62828]" },
+  { icon:"🕵️", title:"Man-in-the-middle attacks", desc:"Hackers set up fake hotspots with names like \"Airport_Free_WiFi\". Your device connects thinking it's legitimate.", color:"bg-[#FFF2CC] border-[#FDE68A] text-[#92400E]" },
+  { icon:"🏦", title:"Never do banking on open networks", desc:"Online banking, payments, or entering passwords on unsecured Wi-Fi puts your accounts at serious risk.", color:"bg-[#FFF5F5] border-[#FECACA] text-[#C62828]" },
+  { icon:"🔓", title:"Unsecured home routers", desc:"Default router passwords (\"admin/admin\") are publicly known. Change yours immediately to a strong unique password.", color:"bg-[#FFF2CC] border-[#FDE68A] text-[#92400E]" },
+  { icon:"📡", title:"Auto-join networks silently connect you", desc:"When your phone auto-joins known networks, it can connect to an attacker's hotspot with the same name without warning.", color:"bg-[#F3E8FF] border-[#DDD6FE] text-[#5B21B6]" },
 ];
 
 const TIPS = [
@@ -660,47 +661,30 @@ const TIPS = [
   { icon:"🔑", tip:"Confirm network is password-protected before connecting", color:"bg-[#E8F5E9] text-[#1B5E20]" },
 ];
 
-function FlipCard({ myth, fact }: { myth:string; fact:string }) {
-  const [flipped, setFlipped] = useState(false);
-  return (
-    <div className="relative h-[90px] cursor-pointer" style={{ perspective:600 }}
-      onClick={() => { setFlipped(!flipped); sfx.flip(); }}>
-      <motion.div className="absolute inset-0 w-full h-full" style={{ transformStyle:"preserve-3d" }}
-        animate={{ rotateY: flipped ? 180 : 0 }} transition={{ duration:0.45, ease:"easeInOut" }}>
-        {/* Front - Myth */}
-        <div className="absolute inset-0 rounded-2xl bg-[#FFF5F5] border border-[#FECACA] p-3 flex flex-col justify-between"
-          style={{ backfaceVisibility:"hidden" }}>
-          <span className="text-[10px] font-bold text-[#C94A4A] uppercase tracking-wider">🔴 Myth</span>
-          <p className="text-xs font-semibold text-[#3D3A45] leading-snug">{myth}</p>
-          <span className="text-[9px] text-[#6C6775]">Tap to reveal fact →</span>
-        </div>
-        {/* Back - Fact */}
-        <div className="absolute inset-0 rounded-2xl bg-[#EAF7ED] border border-[#A7D7B8] p-3 flex flex-col justify-between"
-          style={{ backfaceVisibility:"hidden", transform:"rotateY(180deg)" }}>
-          <span className="text-[10px] font-bold text-[#3A7D54] uppercase tracking-wider">🟢 Fact</span>
-          <p className="text-xs font-semibold text-[#2E5A44] leading-snug">{fact}</p>
-          <span className="text-[9px] text-[#6C6775]">← Tap to flip back</span>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
 function WifiSafetyCard() {
   return (
-    <BaseCard icon={Wifi} iconBg="bg-[#EAF7ED]" iconColor="#4F9D69" title="Wi-Fi Safety: Myths vs Facts" accent="#4F9D69">
-      <div className="bg-[#EAF7ED] border border-[#A7D7B8] rounded-2xl p-3.5 mb-5 flex items-center gap-3 text-sm text-[#2E5A44]">
-        <CheckCircle2 className="h-5 w-5 shrink-0 text-[#62B685]" />
-        <p><strong>Wi-Fi radiation is safe (non-ionizing).</strong> WHO-classified harmless. No proven health risk.</p>
+    <BaseCard icon={Wifi} iconBg="bg-[#FFF2CC]" iconColor="#D97706" title="Wi-Fi Safety Warnings" accent="#D97706">
+      <div className="bg-[#FFF5F5] border border-[#FECACA] rounded-2xl p-3.5 mb-5 flex items-center gap-3 text-sm text-[#C62828]">
+        <AlertTriangle className="h-5 w-5 shrink-0 text-[#EF4444]" />
+        <p><strong>Wi-Fi networks can be dangerous</strong> — especially public ones. Know the risks before connecting.</p>
       </div>
 
-      <p className="text-xs font-bold text-[#6C6775] mb-3">Tap each card to reveal the fact 👇</p>
-      <div className="grid grid-cols-2 gap-3 mb-5">
-        {MYTHS.map((m,i) => <FlipCard key={i} myth={m.myth} fact={m.fact} />)}
+      <p className="text-xs font-bold text-[#6C6775] uppercase tracking-wide mb-3">⚠ Real Risks to Watch Out For</p>
+      <div className="space-y-3 mb-5">
+        {WIFI_WARNINGS.map((w, i) => (
+          <motion.div key={i} whileHover={{ x: 4 }}
+            className={`flex gap-3 p-3.5 rounded-2xl border text-xs ${w.color}`}>
+            <span className="text-xl shrink-0">{w.icon}</span>
+            <div>
+              <p className="font-bold mb-0.5">{w.title}</p>
+              <p className="leading-snug opacity-80">{w.desc}</p>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       <p className="text-xs font-bold text-[#3D3A45] mb-3 flex items-center gap-1.5">
-        <Zap className="h-3.5 w-3.5 text-[#D4A373]" /> Practical Safety Tips
+        <Zap className="h-3.5 w-3.5 text-[#D4A373]" /> How to Stay Safe
       </p>
       <div className="space-y-2">
         {TIPS.map((t,i) => (
