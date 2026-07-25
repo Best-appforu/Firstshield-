@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FirstShield</string>
+    <string name="status_active">FirstShield is Active 🛡</string>
+    <string name="status_paused">FirstShield is Paused ⏸</string>
+    <string name="btn_scan">Scan My Apps Now</string>
+    <string name="btn_dismiss">Dismiss</string>
+    <string name="btn_got_it">Got it!</string>
+    <string name="eye_care_title">Eye Rest Time!</string>
+    <string name="screen_time_title">Daily Limit Reached</string>
+    <string name="headphone_title">Bluetooth Headphones Detected</string>
+    <string name="permission_alert_title">App Permission Alert</string>
+    <string name="privacy_guarantee">No internet permission. All logic runs locally on your device only.</string>
+</resources>

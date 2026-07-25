@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="#F5F0FD">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📱"
+        android:textSize="72sp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily Limit Reached"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#4A2480"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/tvUsage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You've been on your phone for a while today."
+        android:textSize="15sp"
+        android:textColor="#6B4A90"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.4"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Health info box -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:background="#EDE8F7"
+        android:layout_marginBottom="28dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your body needs a break 💜"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#4A2480"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🧠  Reduces mental fatigue and brain fog"
+            android:textSize="13sp"
+            android:textColor="#6B4A90"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="😴  Helps you sleep better tonight"
+            android:textSize="13sp"
+            android:textColor="#6B4A90"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🏃  Try a 10-minute walk instead"
+            android:textSize="13sp"
+            android:textColor="#6B4A90"/>
+    </LinearLayout>
+
+    <!-- Put phone down button -->
+    <Button
+        android:id="@+id/btnLockPhone"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Put Down My Phone 🏠"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="#7D52B3"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Easy dismiss — never trap the user -->
+    <Button
+        android:id="@+id/btnDismiss"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="I'll keep it short — dismiss"
+        android:textSize="14sp"
+        android:backgroundTint="#EDE8F7"
+        android:textColor="#4A2480"/>
+
+</LinearLayout>

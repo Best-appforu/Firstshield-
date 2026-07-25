@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="28dp"
+        android:paddingVertical="20dp">
+
+        <!-- Big success checkmark -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✅"
+            android:textSize="80sp"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You're all set!"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FirstShield is ready to protect you."
+            android:textSize="15sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:layout_marginBottom="28dp"/>
+
+        <!-- Permission summary -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:background="@drawable/bg_card"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Setup summary:"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:id="@+id/tvDoneSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Checking permissions..."
+                android:textSize="13sp"
+                android:textColor="@color/text_primary"
+                android:lineSpacingMultiplier="1.8"/>
+        </LinearLayout>
+
+        <!-- Active features -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:background="@drawable/bg_privacy_badge"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Starting immediately:"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/green_dark"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="👁  Eye care reminder — every 20 minutes"
+                android:textSize="13sp" android:textColor="@color/green_dark"
+                android:layout_marginBottom="5dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="📱  Screen time guard — 2 hour daily limit"
+                android:textSize="13sp" android:textColor="@color/green_dark"
+                android:layout_marginBottom="5dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="🎧  Bluetooth headphone health alerts"
+                android:textSize="13sp" android:textColor="@color/green_dark"
+                android:layout_marginBottom="5dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="🔒  App scanner — alerts on risky app launches"
+                android:textSize="13sp" android:textColor="@color/green_dark"/>
+        </LinearLayout>
+
+        <!-- CTA button -->
+        <Button
+            android:id="@+id/btnStartShield"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:text="Start Protecting Me 🛡"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/primary"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You can change all settings from the main screen at any time."
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4"/>
+
+    </LinearLayout>
+</ScrollView>

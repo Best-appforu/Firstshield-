@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="28dp"
+        android:paddingVertical="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Permission 2 of 3"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📊"
+            android:textSize="64sp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Usage Access"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This lets FirstShield read your daily screen time from Android's built-in tracker — so it can alert you when you hit your daily limit."
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.5"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- How to grant -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:background="@drawable/bg_card"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to grant it:"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="1️⃣  Tap "Grant Permission" below"
+                android:textSize="13sp" android:textColor="@color/text_primary"
+                android:layout_marginBottom="6dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="2️⃣  Find "FirstShield" in the list"
+                android:textSize="13sp" android:textColor="@color/text_primary"
+                android:layout_marginBottom="6dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="3️⃣  Tap it and enable "Permit usage access""
+                android:textSize="13sp" android:textColor="@color/text_primary"
+                android:layout_marginBottom="6dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="4️⃣  Tap "Allow" in the confirmation dialog"
+                android:textSize="13sp" android:textColor="@color/text_primary"
+                android:layout_marginBottom="6dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="5️⃣  Press Back to return here"
+                android:textSize="13sp" android:textColor="@color/text_primary"/>
+        </LinearLayout>
+
+        <!-- Privacy explanation box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:background="@drawable/bg_privacy_badge"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🔐 What we see vs. what we DON'T"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/green_dark"
+                android:layout_marginBottom="6dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="✅  Total minutes spent on each app today (from Android OS)"
+                android:textSize="12sp" android:textColor="@color/green_dark" android:layout_marginBottom="3dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="❌  What you did inside any app"
+                android:textSize="12sp" android:textColor="@color/green_dark" android:layout_marginBottom="3dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="❌  Messages, photos, passwords — nothing like that"
+                android:textSize="12sp" android:textColor="@color/green_dark"/>
+        </LinearLayout>
+
+        <!-- Status badge -->
+        <TextView
+            android:id="@+id/tvUsageStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚠ Not yet granted"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#8B3A00"
+            android:layout_marginBottom="14dp"/>
+
+        <!-- Grant button -->
+        <Button
+            android:id="@+id/btnGrantUsage"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Grant Permission →"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:backgroundTint="@color/primary"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+</ScrollView>
