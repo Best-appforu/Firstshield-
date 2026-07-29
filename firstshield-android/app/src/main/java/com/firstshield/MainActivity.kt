@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.*
@@ -14,6 +15,8 @@ import com.firstshield.data.Prefs
 import com.firstshield.scanner.AppScanner
 import com.firstshield.scanner.PrivacyRating
 import com.firstshield.services.FirstShieldMainService
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnRequestOverlay: Button
     private lateinit var btnRequestUsageAccess: Button
     private lateinit var containerPermWarnings: LinearLayout
+    private lateinit var btnPrivateDns: Button
+    private lateinit var btnYouTubeRestricted: Button
 
     private val stateReceiver = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context, intent: Intent) {
@@ -38,6 +43,13 @@ class MainActivity : AppCompatActivity() {
         Prefs.init(this)
         setContentView(R.layout.activity_main)
 
+        // AdMob — G-rated family-safe ad content filter (must be set before initialization)
+        val requestConfiguration = RequestConfiguration.Builder()
+            .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_G)
+            .build()
+        MobileAds.setRequestConfiguration(requestConfiguration)
+        MobileAds.initialize(this)
+
         switchMaster         = findViewById(R.id.switchMaster)
         tvStatus             = findViewById(R.id.tvStatus)
         tvScanResult         = findViewById(R.id.tvScanResult)
@@ -45,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         btnRequestOverlay    = findViewById(R.id.btnRequestOverlay)
         btnRequestUsageAccess= findViewById(R.id.btnRequestUsageAccess)
         containerPermWarnings= findViewById(R.id.containerPermWarnings)
+        btnPrivateDns        = findViewById(R.id.btnPrivateDns)
+        btnYouTubeRestricted = findViewById(R.id.btnYouTubeRestricted)
 
         // Master toggle
         switchMaster.isChecked = Prefs.isEnabled
@@ -87,6 +101,43 @@ class MainActivity : AppCompatActivity() {
                     btnScanApps.isEnabled = true
                 }
             }.start()
+        }
+
+        // Private DNS — opens system DNS settings so user can type family.adguard-dns.com
+        btnPrivateDns.setOnClickListener {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    // API 29+ has a direct Private DNS settings screen
+                    startActivity(Intent(Settings.ACTION_PRIVATE_DNS_SETTINGS))
+                } else {
+                    // Older devices: open general wireless/network settings
+                    startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
+                }
+            } catch (e: Exception) {
+                // Absolute fallback — open main settings
+                startActivity(Intent(Settings.ACTION_SETTINGS))
+            }
+        }
+
+        // YouTube Restricted Mode — open YouTube app or fall back to browser
+        btnYouTubeRestricted.setOnClickListener {
+            // Deep-link directly to YouTube's account settings page where Restricted Mode lives
+            val youtubeAppIntent = packageManager.getLaunchIntentForPackage("com.google.android.youtube")
+            if (youtubeAppIntent != null) {
+                // YouTube is installed — launch it (user navigates Account → Settings → Restricted Mode)
+                startActivity(youtubeAppIntent)
+                Toast.makeText(
+                    this,
+                    "In YouTube: tap your profile → Settings → Restricted Mode",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                // YouTube not installed — open browser to YouTube's restricted mode help page
+                startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://support.google.com/youtube/answer/174084"))
+                )
+            }
         }
 
         // Request overlay permission
