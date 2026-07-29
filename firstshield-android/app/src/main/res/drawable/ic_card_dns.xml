@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Shield body (main purple) -->
+    <path android:fillColor="#7B1FA2"
+        android:pathData="M50,8 L82,20 L82,52 Q82,76 50,90 Q18,76 18,52 L18,20 Z"/>
+
+    <!-- Shield inner lighter area -->
+    <path android:fillColor="#9C27B0"
+        android:pathData="M50,16 L76,26 L76,52 Q76,70 50,82 Q24,70 24,52 L24,26 Z"/>
+
+    <!-- WiFi arc 1 (outermost) -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M34,54 Q34,37 50,37 Q66,37 66,54"/>
+
+    <!-- WiFi arc 2 (middle) -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M39,59 Q39,46 50,46 Q61,46 61,59"/>
+
+    <!-- WiFi arc 3 (inner) -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M44,64 Q44,55 50,55 Q56,55 56,64"/>
+
+    <!-- WiFi dot -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M47,66 A3,3 0 1,1 53,66 A3,3 0 1,1 47,66 Z"/>
+
+    <!-- Blocked / red X badge (top right of shield) -->
+    <path android:fillColor="#F44336"
+        android:pathData="M72,6 A12,12 0 1,1 72,30 A12,12 0 1,1 72,6 Z"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M67,11 L77,21"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M77,11 L67,21"/>
+
+    <!-- Stars/sparkles around shield -->
+    <path android:fillColor="#FFC107"
+        android:pathData="M10,38 L11.5,42 L15,42 L12.5,44.5 L13.5,48 L10,46 L6.5,48 L7.5,44.5 L5,42 L8.5,42 Z"/>
+    <path android:fillColor="#FFC107"
+        android:pathData="M88,55 L89,58 L92,58 L90,60 L90.5,63 L88,61.5 L85.5,63 L86,60 L84,58 L87,58 Z"/>
+
+</vector>

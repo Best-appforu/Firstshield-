@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Background circle (blue) -->
+    <path android:fillColor="#1565C0"
+        android:pathData="M6,6 A44,44 0 1,1 94,50 A44,44 0 1,1 6,50 Z"/>
+
+    <!-- Police badge / star shape (8-point star) -->
+    <path android:fillColor="#FFC107"
+        android:pathData="M50,14 L54,26 L66,22 L62,34 L74,38 L64,46 L70,58 L58,56 L54,68 L50,58 L46,68 L42,56 L30,58 L36,46 L26,38 L38,34 L34,22 L46,26 Z"/>
+
+    <!-- Badge inner circle -->
+    <path android:fillColor="#1565C0"
+        android:pathData="M36,36 A14,14 0 1,1 64,50 A14,14 0 1,1 36,50 Z"/>
+
+    <!-- Phone handset icon (classic) -->
+    <!-- Earpiece -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M40,38 Q38,36 39,33 Q40,30 43,30 L47,30 Q49,30 49,32 L49,36 Q49,38 47,39 Z"/>
+    <!-- Handset body curve -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M40,38 Q36,44 38,52 Q40,58 46,60"/>
+    <!-- Mouthpiece -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M46,60 Q49,62 53,61 L57,59 Q59,58 59,56 L59,52 Q59,50 57,50 Z"/>
+
+    <!-- Signal waves (right side, showing active call) -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M66,38 Q70,44 70,50 Q70,56 66,62"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M70,34 Q76,42 76,50 Q76,58 70,66"/>
+
+    <!-- "1930" text at bottom -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M38,78 L38,88 L40,88 L40,79 L41,79 L41,77 L38,77 Z"/>
+    <!-- 9 -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M43,77 Q43,75 46,75 Q49,75 49,78 L49,84 Q49,87 46,87 L44,87 L44,85 L46,85 Q47,85 47,84 L47,82 Q46,83 44,83 Q43,83 43,80 Z M45,77 Q45,75 46,77 Q47,79 46,81 Q45,81 45,79 Z"/>
+    <!-- 3 -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M51,77 L57,77 L57,79 L53,79 L53,81 L56,81 L56,83 L53,83 L53,85 L57,85 L57,87 L51,87 Z"/>
+    <!-- 0 -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M59,77 Q59,75 62,75 Q65,75 65,77 L65,87 Q65,89 62,89 Q59,89 59,87 Z M61,79 L61,85 Q61,87 62,87 Q63,87 63,85 L63,79 Q63,77 62,77 Q61,77 61,79 Z"/>
+
+</vector>

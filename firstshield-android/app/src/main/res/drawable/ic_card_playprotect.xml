@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Phone body -->
+    <path android:fillColor="#263238"
+        android:pathData="M20,8 Q20,4 24,4 L60,4 Q64,4 64,8 L64,92 Q64,96 60,96 L24,96 Q20,96 20,92 Z"/>
+
+    <!-- Phone screen -->
+    <path android:fillColor="#1B5E20"
+        android:pathData="M25,14 L59,14 L59,84 L25,84 Z"/>
+
+    <!-- Matrix-style green scan lines (static representation) -->
+    <path android:fillColor="#00E676" android:alpha="0.15"
+        android:pathData="M25,25 L59,25 L59,28 L25,28 Z"/>
+    <path android:fillColor="#00E676" android:alpha="0.15"
+        android:pathData="M25,35 L59,35 L59,38 L25,38 Z"/>
+    <path android:fillColor="#00E676" android:alpha="0.15"
+        android:pathData="M25,45 L59,45 L59,48 L25,48 Z"/>
+    <path android:fillColor="#00E676" android:alpha="0.15"
+        android:pathData="M25,55 L59,55 L59,58 L25,58 Z"/>
+    <path android:fillColor="#00E676" android:alpha="0.15"
+        android:pathData="M25,65 L59,65 L59,68 L25,68 Z"/>
+
+    <!-- Active scan beam (bright green) -->
+    <path android:fillColor="#00E676"
+        android:pathData="M25,48 L59,48 L59,52 L25,52 Z"/>
+
+    <!-- Bug icon (being eliminated, top-right area) -->
+    <!-- Bug body -->
+    <path android:fillColor="#F44336"
+        android:pathData="M72,20 A9,9 0 1,1 72,38 A9,9 0 1,1 72,20 Z"/>
+    <!-- Bug legs -->
+    <path android:fillColor="#00000000" android:strokeColor="#F44336" android:strokeWidth="2" android:strokeLineCap="round"
+        android:pathData="M63,24 L68,27"/>
+    <path android:fillColor="#00000000" android:strokeColor="#F44336" android:strokeWidth="2" android:strokeLineCap="round"
+        android:pathData="M63,29 L68,29"/>
+    <path android:fillColor="#00000000" android:strokeColor="#F44336" android:strokeWidth="2" android:strokeLineCap="round"
+        android:pathData="M63,34 L68,31"/>
+    <path android:fillColor="#00000000" android:strokeColor="#F44336" android:strokeWidth="2" android:strokeLineCap="round"
+        android:pathData="M81,24 L76,27"/>
+    <path android:fillColor="#00000000" android:strokeColor="#F44336" android:strokeWidth="2" android:strokeLineCap="round"
+        android:pathData="M81,29 L76,29"/>
+    <path android:fillColor="#00000000" android:strokeColor="#F44336" android:strokeWidth="2" android:strokeLineCap="round"
+        android:pathData="M81,34 L76,31"/>
+    <!-- Bug X face (eliminated) -->
+    <path android:fillColor="#00000000" android:strokeColor="#FFFFFF" android:strokeWidth="2.5" android:strokeLineCap="round"
+        android:pathData="M68,24 L76,32"/>
+    <path android:fillColor="#00000000" android:strokeColor="#FFFFFF" android:strokeWidth="2.5" android:strokeLineCap="round"
+        android:pathData="M76,24 L68,32"/>
+
+    <!-- Green shield (large, bottom right) -->
+    <path android:fillColor="#2E7D32"
+        android:pathData="M72,50 L90,56 L90,70 Q90,82 72,88 Q54,82 54,70 L54,56 Z"/>
+    <path android:fillColor="#43A047"
+        android:pathData="M72,56 L86,61 L86,70 Q86,79 72,84 Q58,79 58,70 L58,61 Z"/>
+
+    <!-- Checkmark in shield -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M63,70 L70,77 L82,62"/>
+
+    <!-- Phone home button -->
+    <path android:fillColor="#37474F"
+        android:pathData="M37,88 A4,4 0 1,1 47,88 A4,4 0 1,1 37,88 Z"/>
+
+</vector>

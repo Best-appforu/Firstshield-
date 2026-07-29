@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Phone body -->
+    <path android:fillColor="#37474F"
+        android:pathData="M22,10 Q22,6 26,6 L54,6 Q58,6 58,10 L58,90 Q58,94 54,94 L26,94 Q22,94 22,90 Z"/>
+
+    <!-- Phone screen background -->
+    <path android:fillColor="#ECEFF1"
+        android:pathData="M26,16 L54,16 L54,84 L26,84 Z"/>
+
+    <!-- App icons on screen (3x3 grid) -->
+    <!-- Row 1 -->
+    <path android:fillColor="#EF5350" android:pathData="M29,20 Q29,18 31,18 L35,18 Q37,18 37,20 L37,24 Q37,26 35,26 L31,26 Q29,26 29,24 Z"/>
+    <path android:fillColor="#42A5F5" android:pathData="M38,20 Q38,18 40,18 L44,18 Q46,18 46,20 L46,24 Q46,26 44,26 L40,26 Q38,26 38,24 Z"/>
+    <path android:fillColor="#66BB6A" android:pathData="M47,20 Q47,18 49,18 L53,18 Q55,18 55,20 L55,24 Q55,26 53,26 L49,26 Q47,26 47,24 Z"/>
+    <!-- Row 2 -->
+    <path android:fillColor="#FFA726" android:pathData="M29,28 Q29,26 31,26 L35,26 Q37,26 37,28 L37,32 Q37,34 35,34 L31,34 Q29,34 29,32 Z"/>
+    <path android:fillColor="#AB47BC" android:pathData="M38,28 Q38,26 40,26 L44,26 Q46,26 46,28 L46,32 Q46,34 44,34 L40,34 Q38,34 38,32 Z"/>
+    <path android:fillColor="#26C6DA" android:pathData="M47,28 Q47,26 49,26 L53,26 Q55,26 55,28 L55,32 Q55,34 53,34 L49,34 Q47,34 47,32 Z"/>
+    <!-- Row 3 -->
+    <path android:fillColor="#EC407A" android:pathData="M29,36 Q29,34 31,34 L35,34 Q37,34 37,36 L37,40 Q37,42 35,42 L31,42 Q29,42 29,40 Z"/>
+    <path android:fillColor="#8D6E63" android:pathData="M38,36 Q38,34 40,34 L44,34 Q46,34 46,36 L46,40 Q46,42 44,42 L40,42 Q38,42 38,40 Z"/>
+    <path android:fillColor="#78909C" android:pathData="M47,36 Q47,34 49,34 L53,34 Q55,34 55,36 L55,40 Q55,42 53,42 L49,42 Q47,42 47,40 Z"/>
+
+    <!-- Phone home button -->
+    <path android:fillColor="#546E7A"
+        android:pathData="M36,87 A4,4 0 1,1 44,87 A4,4 0 1,1 36,87 Z"/>
+
+    <!-- Magnifying glass circle (teal, overlapping phone) -->
+    <path android:fillColor="#E0F7FA"
+        android:strokeColor="#00897B"
+        android:strokeWidth="4"
+        android:pathData="M55,38 A22,22 0 1,1 55,82 A22,22 0 1,1 55,38 Z"/>
+
+    <!-- Magnifying glass lens shine -->
+    <path android:fillColor="#80DEEA" android:alpha="0.5"
+        android:pathData="M59,42 A4,4 0 1,1 59,50 A4,4 0 1,1 59,42 Z"/>
+
+    <!-- Magnifying glass handle -->
+    <path android:fillColor="#00897B"
+        android:strokeColor="#00897B"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:pathData="M74,74 L90,90"/>
+
+    <!-- Warning icon inside magnifying glass (eye symbol) -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#00897B"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M58,56 Q65,48 72,56 Q65,64 58,56 Z"/>
+    <path android:fillColor="#00897B"
+        android:pathData="M62,56 A3,3 0 1,1 68,56 A3,3 0 1,1 62,56 Z"/>
+
+</vector>

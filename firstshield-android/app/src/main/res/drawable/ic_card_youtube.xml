@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- TV body -->
+    <path android:fillColor="#37474F"
+        android:pathData="M12,20 Q12,14 18,14 L82,14 Q88,14 88,20 L88,66 Q88,72 82,72 L18,72 Q12,72 12,66 Z"/>
+
+    <!-- TV screen -->
+    <path android:fillColor="#1565C0"
+        android:pathData="M18,20 L82,20 L82,66 L18,66 Z"/>
+
+    <!-- Screen glare highlight -->
+    <path android:fillColor="#2979FF" android:alpha="0.4"
+        android:pathData="M18,20 L82,20 L82,36 L18,36 Z"/>
+
+    <!-- Child figure silhouette (left side of screen) -->
+    <!-- Head -->
+    <path android:fillColor="#FFCC80"
+        android:pathData="M30,30 A5,5 0 1,1 30,40 A5,5 0 1,1 30,30 Z"/>
+    <!-- Body -->
+    <path android:fillColor="#EF9A9A"
+        android:pathData="M26,42 Q26,38 30,38 Q34,38 34,42 L34,55 Q34,57 30,57 Q26,57 26,55 Z"/>
+    <!-- Legs -->
+    <path android:fillColor="#1A237E"
+        android:pathData="M27,55 L27,63 L29,63 L30,58 L31,63 L33,63 L33,55 Z"/>
+
+    <!-- YouTube screen (right half) -->
+    <path android:fillColor="#CC0000"
+        android:pathData="M44,32 Q44,29 47,29 L76,29 Q79,29 79,32 L79,54 Q79,57 76,57 L47,57 Q44,57 44,54 Z"/>
+
+    <!-- Play button triangle -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M55,36 L55,50 L70,43 Z"/>
+
+    <!-- Safe checkmark badge -->
+    <path android:fillColor="#4CAF50"
+        android:pathData="M76,60 Q82,62 82,68 L82,74 Q79,80 76,82 Q73,80 70,74 L70,68 Q70,62 76,60 Z"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M72,71 L75,74 L80,67"/>
+
+    <!-- TV Stand -->
+    <path android:fillColor="#546E7A"
+        android:pathData="M42,72 L58,72 L62,82 L38,82 Z"/>
+    <!-- TV Base -->
+    <path android:fillColor="#546E7A"
+        android:pathData="M34,82 L66,82 L66,86 L34,86 Z"/>
+
+</vector>

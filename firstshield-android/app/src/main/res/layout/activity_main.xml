@@ -9,55 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
 
-        <!-- Header -->
+        <!-- ══════════ HEADER ══════════ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="14dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🛡 FirstShield"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="v1.0"
-                android:textSize="12sp"
-                android:textColor="@color/text_secondary"/>
-        </LinearLayout>
-
-        <!-- Status bar -->
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textSize="14sp"
-            android:textColor="@color/text_primary"
-            android:lineSpacingMultiplier="1.4"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/bg_status_active"
-            android:text="🛡 FirstShield is ACTIVE"/>
-
-        <!-- Master Toggle Card -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_card">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_launcher_foreground"
+                android:background="@drawable/ic_launcher_background"
+                android:padding="4dp"
+                android:layout_marginEnd="10dp"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -68,15 +36,65 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Master On/Off"
-                    android:textSize="16sp"
+                    android:text="FirstShield"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"/>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pause all alerts instantly"
+                    android:text="Family Safety &amp; Privacy Guard"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_secondary"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="v1.0"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+
+        <!-- ══════════ STATUS BAR ══════════ -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:textSize="13sp"
+            android:textColor="@color/text_primary"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_status_active"
+            android:text="🛡 FirstShield is ACTIVE"/>
+
+        <!-- ══════════ MASTER TOGGLE ══════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="14dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_card">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Master On / Off"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pause all alerts with one tap"
                     android:textSize="12sp"
                     android:textColor="@color/text_secondary"/>
             </LinearLayout>
@@ -88,207 +106,378 @@
                 android:checked="true"/>
         </LinearLayout>
 
-        <!-- Permission Warnings Container -->
+        <!-- Permission warning containers (hidden unless needed) -->
         <LinearLayout
             android:id="@+id/containerPermWarnings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="8dp"/>
-
-        <!-- Grant Overlay Permission Button -->
+            android:layout_marginBottom="4dp"/>
         <Button
             android:id="@+id/btnRequestOverlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Grant Overlay Permission"
             android:visibility="gone"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="6dp"
             android:backgroundTint="@color/accent_orange"/>
-
-        <!-- Grant Usage Access Button -->
         <Button
             android:id="@+id/btnRequestUsageAccess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Grant Usage Access"
             android:visibility="gone"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="14dp"
             android:backgroundTint="@color/accent_orange"/>
 
-        <!-- App Scanner Card -->
+        <!-- ══════════ SECTION TITLE ══════════ -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏠  Family Safety Tools"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="6dp"/>
+
+        <!-- ════════════════════════════════════════
+             CARD 1 — YouTube Restricted Mode
+             ════════════════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
             android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_card">
+            android:background="@drawable/bg_card_red">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🔍 App Permission Scanner"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scans all installed apps locally — no internet required."
+                <ImageView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/ic_card_youtube"
+                    android:layout_marginEnd="14dp"
+                    android:scaleType="fitCenter"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YouTube Safe Mode"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#CC0000"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Blocks inappropriate videos and adult content for children on YouTube."
+                        android:textSize="12sp"
+                        android:textColor="#555555"
+                        android:lineSpacingMultiplier="1.4"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnYouTubeRestricted"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="▶  Open YouTube — Turn On Restricted Mode"
                 android:textSize="12sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="12dp"/>
+                android:backgroundTint="#CC0000"/>
+        </LinearLayout>
+
+        <!-- ════════════════════════════════════════
+             CARD 2 — Private DNS
+             ════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_card_purple">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/ic_card_dns"
+                    android:layout_marginEnd="14dp"
+                    android:scaleType="fitCenter"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Private DNS Blocker"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#7B1FA2"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Blocks adult ads and inappropriate pop-ups inside games and apps."
+                        android:textSize="12sp"
+                        android:textColor="#555555"
+                        android:lineSpacingMultiplier="1.4"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Enter: family.adguard-dns.com"
+                        android:textSize="11sp"
+                        android:textStyle="italic"
+                        android:textColor="#9C27B0"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnPrivateDns"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="🌐  Open DNS Settings"
+                android:textSize="12sp"
+                android:backgroundTint="#7B1FA2"/>
+        </LinearLayout>
+
+        <!-- ════════════════════════════════════════
+             CARD 3 — App Permissions Scanner
+             ════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_card_teal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/ic_card_permissions"
+                    android:layout_marginEnd="14dp"
+                    android:scaleType="fitCenter"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="App Permissions Scanner"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#00695C"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Stops hidden apps from secretly accessing your camera, location, and photos."
+                        android:textSize="12sp"
+                        android:textColor="#555555"
+                        android:lineSpacingMultiplier="1.4"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnScanApps"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Scan My Apps Now"
-                android:backgroundTint="@color/primary"/>
+                android:layout_height="44dp"
+                android:text="🔍  Scan My Apps Now"
+                android:textSize="12sp"
+                android:backgroundTint="#00897B"/>
 
             <TextView
                 android:id="@+id/tvScanResult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_primary"
                 android:fontFamily="monospace"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:lineSpacingMultiplier="1.5"/>
         </LinearLayout>
 
-        <!-- Family Safety Tools Card -->
+        <!-- ════════════════════════════════════════
+             CARD 4 — Play Protect Scan
+             ════════════════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
             android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_card">
+            android:background="@drawable/bg_card_green">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🏠 Family Safety Tools"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="4dp"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Quick shortcuts to protect your family online."
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/ic_card_playprotect"
+                    android:layout_marginEnd="14dp"
+                    android:scaleType="fitCenter"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Play Protect Scan"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#1B5E20"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Scans and cleans malware, viruses, and risky apps installed on your phone."
+                        android:textSize="12sp"
+                        android:textColor="#555555"
+                        android:lineSpacingMultiplier="1.4"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnPlayProtect"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="🛡  Run Play Protect Scan"
                 android:textSize="12sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="14dp"/>
-
-            <!-- Private DNS Button -->
-            <Button
-                android:id="@+id/btnPrivateDns"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🌐  Set Private DNS (Block Ads &amp; Adult Content)"
-                android:textSize="13sp"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="#5B21B6"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Opens DNS settings → enter: family.adguard-dns.com"
-                android:textSize="11sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="14dp"
-                android:paddingStart="4dp"/>
-
-            <!-- YouTube Restricted Mode Button -->
-            <Button
-                android:id="@+id/btnYouTubeRestricted"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="▶  Open YouTube → Turn On Restricted Mode"
-                android:textSize="13sp"
-                android:backgroundTint="#CC0000"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Opens YouTube → Account → Settings → Restricted Mode"
-                android:textSize="11sp"
-                android:textColor="@color/text_secondary"
-                android:paddingStart="4dp"
-                android:layout_marginTop="4dp"/>
-
+                android:backgroundTint="#2E7D32"/>
         </LinearLayout>
 
-        <!-- Features Info Card -->
+        <!-- ════════════════════════════════════════
+             CARD 5 — Cyber Helpline
+             ════════════════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_card">
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_card_blue">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Active Protections"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="👁  Eye Care — 20-20-20 reminder every 20 min"
-                android:textSize="13sp"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="6dp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="📱  Screen Time — alerts after 2 hours daily"
-                android:textSize="13sp"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="6dp"/>
+                <ImageView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/ic_card_helpline"
+                    android:layout_marginEnd="14dp"
+                    android:scaleType="fitCenter"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🎧  Headphone — warns if Bluetooth earphones connected"
-                android:textSize="13sp"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="6dp"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cyber Crime Helpline"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D47A1"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Direct helpline if you face financial fraud, fake loan apps, or online scams."
+                        android:textSize="12sp"
+                        android:textColor="#555555"
+                        android:lineSpacingMultiplier="1.4"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="National Cyber Crime Helpline — 1930"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#1565C0"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnHelpline"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🔒  App Scanner — alerts on risky permissions at app launch"
-                android:textSize="13sp"
-                android:textColor="@color/text_primary"/>
+                android:layout_height="44dp"
+                android:text="📞  Call 1930 — Cyber Crime Helpline"
+                android:textSize="12sp"
+                android:backgroundTint="#1565C0"/>
         </LinearLayout>
 
-        <!-- Privacy Guarantee -->
+        <!-- ══════════ PRIVACY BADGE ══════════ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:padding="14dp"
             android:background="@drawable/bg_privacy_badge">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🔐 100% Local Privacy"
-                android:textSize="14sp"
+                android:text="🔐  100% Local Privacy"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:textColor="@color/green_dark"
                 android:layout_marginBottom="4dp"/>
@@ -297,7 +486,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="No internet permission. No data uploaded. Everything runs on your device only."
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textColor="@color/green_dark"
                 android:lineSpacingMultiplier="1.4"/>
         </LinearLayout>

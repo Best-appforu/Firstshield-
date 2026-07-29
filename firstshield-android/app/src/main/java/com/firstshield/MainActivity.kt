@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var containerPermWarnings: LinearLayout
     private lateinit var btnPrivateDns: Button
     private lateinit var btnYouTubeRestricted: Button
+    private lateinit var btnPlayProtect: Button
+    private lateinit var btnHelpline: Button
 
     private val stateReceiver = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context, intent: Intent) {
@@ -43,24 +45,29 @@ class MainActivity : AppCompatActivity() {
         Prefs.init(this)
         setContentView(R.layout.activity_main)
 
-        // AdMob — G-rated family-safe ad content filter (must be set before initialization)
+        // ── AdMob — G-rated family-safe content filter ──────────────────────
+        // Must be set BEFORE MobileAds.initialize so every ad request
+        // is filtered to G-rated (child-appropriate) content only.
         val requestConfiguration = RequestConfiguration.Builder()
             .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_G)
             .build()
         MobileAds.setRequestConfiguration(requestConfiguration)
         MobileAds.initialize(this)
+        // ────────────────────────────────────────────────────────────────────
 
-        switchMaster         = findViewById(R.id.switchMaster)
-        tvStatus             = findViewById(R.id.tvStatus)
-        tvScanResult         = findViewById(R.id.tvScanResult)
-        btnScanApps          = findViewById(R.id.btnScanApps)
-        btnRequestOverlay    = findViewById(R.id.btnRequestOverlay)
-        btnRequestUsageAccess= findViewById(R.id.btnRequestUsageAccess)
-        containerPermWarnings= findViewById(R.id.containerPermWarnings)
-        btnPrivateDns        = findViewById(R.id.btnPrivateDns)
-        btnYouTubeRestricted = findViewById(R.id.btnYouTubeRestricted)
+        switchMaster          = findViewById(R.id.switchMaster)
+        tvStatus              = findViewById(R.id.tvStatus)
+        tvScanResult          = findViewById(R.id.tvScanResult)
+        btnScanApps           = findViewById(R.id.btnScanApps)
+        btnRequestOverlay     = findViewById(R.id.btnRequestOverlay)
+        btnRequestUsageAccess = findViewById(R.id.btnRequestUsageAccess)
+        containerPermWarnings = findViewById(R.id.containerPermWarnings)
+        btnPrivateDns         = findViewById(R.id.btnPrivateDns)
+        btnYouTubeRestricted  = findViewById(R.id.btnYouTubeRestricted)
+        btnPlayProtect        = findViewById(R.id.btnPlayProtect)
+        btnHelpline           = findViewById(R.id.btnHelpline)
 
-        // Master toggle
+        // ── Master toggle ────────────────────────────────────────────────────
         switchMaster.isChecked = Prefs.isEnabled
         updateToggleUI(Prefs.isEnabled)
 
@@ -71,22 +78,24 @@ class MainActivity : AppCompatActivity() {
             updateToggleUI(checked)
         }
 
-        // Scan button — runs local scan
+        // ── App Scanner ──────────────────────────────────────────────────────
         btnScanApps.setOnClickListener {
-            tvScanResult.text = "Scanning installed apps...\n(This may take a moment)"
+            tvScanResult.text = "Scanning installed apps…\n(This may take a moment)"
             btnScanApps.isEnabled = false
 
             Thread {
-                val results = AppScanner.scanAllUserApps(this)
-                val redApps    = results.filter { it.privacyRating == PrivacyRating.RED }
-                val yellowApps = results.filter { it.privacyRating == PrivacyRating.YELLOW }
-                val greenApps  = results.filter { it.privacyRating == PrivacyRating.GREEN }
+                val results   = AppScanner.scanAllUserApps(this)
+                val redApps   = results.filter { it.privacyRating == PrivacyRating.RED }
+                val yellowApps= results.filter { it.privacyRating == PrivacyRating.YELLOW }
+                val greenApps = results.filter { it.privacyRating == PrivacyRating.GREEN }
 
                 val sb = StringBuilder()
                 sb.appendLine("✅ Scan complete — ${results.size} apps checked\n")
                 if (redApps.isNotEmpty()) {
                     sb.appendLine("🔴 HIGH RISK (${redApps.size} apps):")
-                    redApps.take(5).forEach { sb.appendLine("  • ${it.appName} — ${it.dangerousPermissions.size} risky perms, ${it.trackers.size} trackers") }
+                    redApps.take(5).forEach {
+                        sb.appendLine("  • ${it.appName} — ${it.dangerousPermissions.size} risky perms, ${it.trackers.size} trackers")
+                    }
                     sb.appendLine()
                 }
                 if (yellowApps.isNotEmpty()) {
@@ -103,36 +112,34 @@ class MainActivity : AppCompatActivity() {
             }.start()
         }
 
-        // Private DNS — opens system DNS settings so user can type family.adguard-dns.com
+        // ── Private DNS ──────────────────────────────────────────────────────
+        // Opens the system Private DNS screen (API 29+) where the user types
+        // "family.adguard-dns.com" to block adult content at the DNS level.
         btnPrivateDns.setOnClickListener {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    // API 29+ has a direct Private DNS settings screen
                     startActivity(Intent(Settings.ACTION_PRIVATE_DNS_SETTINGS))
                 } else {
-                    // Older devices: open general wireless/network settings
                     startActivity(Intent(Settings.ACTION_WIRELESS_SETTINGS))
                 }
             } catch (e: Exception) {
-                // Absolute fallback — open main settings
                 startActivity(Intent(Settings.ACTION_SETTINGS))
             }
         }
 
-        // YouTube Restricted Mode — open YouTube app or fall back to browser
+        // ── YouTube Restricted Mode ──────────────────────────────────────────
+        // Launches the YouTube app (or browser fallback) so parents can enable
+        // Restricted Mode: Account → Settings → Restricted Mode.
         btnYouTubeRestricted.setOnClickListener {
-            // Deep-link directly to YouTube's account settings page where Restricted Mode lives
-            val youtubeAppIntent = packageManager.getLaunchIntentForPackage("com.google.android.youtube")
-            if (youtubeAppIntent != null) {
-                // YouTube is installed — launch it (user navigates Account → Settings → Restricted Mode)
-                startActivity(youtubeAppIntent)
+            val youtubeApp = packageManager.getLaunchIntentForPackage("com.google.android.youtube")
+            if (youtubeApp != null) {
+                startActivity(youtubeApp)
                 Toast.makeText(
                     this,
-                    "In YouTube: tap your profile → Settings → Restricted Mode",
+                    "In YouTube: tap your profile → Settings → Restricted Mode → ON",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-                // YouTube not installed — open browser to YouTube's restricted mode help page
                 startActivity(
                     Intent(Intent.ACTION_VIEW,
                         Uri.parse("https://support.google.com/youtube/answer/174084"))
@@ -140,48 +147,77 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Request overlay permission
+        // ── Google Play Protect ──────────────────────────────────────────────
+        // Opens the Play Store's Play Protect section so the user can run a
+        // full malware scan from Google's own security scanner.
+        btnPlayProtect.setOnClickListener {
+            try {
+                // Direct deep-link to Play Protect inside the Play Store
+                val intent = Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=com.google.android.gms")).apply {
+                    setPackage("com.android.vending")
+                }
+                startActivity(intent)
+                Toast.makeText(
+                    this,
+                    "In Play Store: tap Menu (☰) → Play Protect → Scan",
+                    Toast.LENGTH_LONG
+                ).show()
+            } catch (e: Exception) {
+                // Fallback: device security settings (Play Protect visible there too)
+                try {
+                    startActivity(Intent(Settings.ACTION_SECURITY_SETTINGS))
+                } catch (ex: Exception) {
+                    startActivity(Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://support.google.com/googleplay/answer/2812853")))
+                }
+            }
+        }
+
+        // ── Cyber Crime Helpline ─────────────────────────────────────────────
+        // Dials India's National Cyber Crime Helpline 1930.
+        // Uses ACTION_DIAL so the user confirms before calling.
+        btnHelpline.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:1930")))
+        }
+
+        // ── Overlay / Usage access permission buttons ────────────────────────
         btnRequestOverlay.setOnClickListener {
             startActivity(
                 Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:$packageName"))
             )
         }
-
-        // Request usage access permission
         btnRequestUsageAccess.setOnClickListener {
             startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
         }
 
-        // Register broadcast to receive toggle state changes
+        // Broadcast for toggle state changes from notification action
         registerReceiver(stateReceiver, IntentFilter("com.firstshield.STATE_CHANGED"))
 
-        // Start main service if not running
+        // Ensure the main service is running
         startForegroundService(Intent(this, FirstShieldMainService::class.java))
-
-        // Check what permissions are missing
         refreshPermissionWarnings()
     }
 
     private fun updateToggleUI(enabled: Boolean) {
         switchMaster.isChecked = enabled
         if (enabled) {
-            tvStatus.text = "🛡 FirstShield is ACTIVE\nAll monitoring is running locally on your device."
+            tvStatus.text = "🛡 FirstShield is ACTIVE — All monitoring running locally."
             tvStatus.setBackgroundResource(R.drawable.bg_status_active)
         } else {
-            tvStatus.text = "⏸ FirstShield is PAUSED\nAll pop-ups and alerts are temporarily disabled."
+            tvStatus.text = "⏸ FirstShield is PAUSED — All pop-ups and alerts disabled."
             tvStatus.setBackgroundResource(R.drawable.bg_status_paused)
         }
     }
 
     private fun refreshPermissionWarnings() {
         containerPermWarnings.removeAllViews()
-
         if (!Settings.canDrawOverlays(this)) {
-            addWarning("⚠ Overlay Permission Missing — Tap to grant it so pop-ups can appear", btnRequestOverlay)
+            addWarning("⚠ Overlay Permission Missing — Tap to grant", btnRequestOverlay)
         }
         if (!hasUsageStatsPermission()) {
-            addWarning("⚠ Usage Access Missing — Tap to grant it for screen-time tracking", btnRequestUsageAccess)
+            addWarning("⚠ Usage Access Missing — Tap to grant for screen-time tracking", btnRequestUsageAccess)
         }
     }
 
