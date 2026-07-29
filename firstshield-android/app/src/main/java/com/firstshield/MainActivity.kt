@@ -1,5 +1,6 @@
 package com.firstshield
 
+import android.app.AlertDialog
 import android.app.AppOpsManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnYouTubeRestricted: Button
     private lateinit var btnPlayProtect: Button
     private lateinit var btnHelpline: Button
+    private lateinit var btnEmergencySOS: Button
+    private lateinit var btnBatterySettings: Button
 
     private val stateReceiver = object : BroadcastReceiver() {
         override fun onReceive(ctx: Context, intent: Intent) {
@@ -66,6 +69,8 @@ class MainActivity : AppCompatActivity() {
         btnYouTubeRestricted  = findViewById(R.id.btnYouTubeRestricted)
         btnPlayProtect        = findViewById(R.id.btnPlayProtect)
         btnHelpline           = findViewById(R.id.btnHelpline)
+        btnEmergencySOS       = findViewById(R.id.btnEmergencySOS)
+        btnBatterySettings    = findViewById(R.id.btnBatterySettings)
 
         // ── Master toggle ────────────────────────────────────────────────────
         switchMaster.isChecked = Prefs.isEnabled
@@ -179,6 +184,36 @@ class MainActivity : AppCompatActivity() {
         // Uses ACTION_DIAL so the user confirms before calling.
         btnHelpline.setOnClickListener {
             startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:1930")))
+        }
+
+        // ── Emergency SOS ────────────────────────────────────────────────────
+        // Shows a dialog so the user can choose 112 (National Emergency)
+        // or 1098 (Childline). ACTION_DIAL lets them confirm before calling.
+        btnEmergencySOS.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("📞  Call Emergency Helpline")
+                .setMessage("Choose the helpline to call:")
+                .setPositiveButton("🚑  112 — National Emergency") { _, _ ->
+                    startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:112")))
+                }
+                .setNegativeButton("👧  1098 — Childline") { _, _ ->
+                    startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:1098")))
+                }
+                .setNeutralButton("Cancel", null)
+                .show()
+        }
+
+        // ── Battery & Device Health ──────────────────────────────────────────
+        // Opens the system Battery Saver settings page where users can check
+        // battery health and configure overheating / saver thresholds.
+        btnBatterySettings.setOnClickListener {
+            try {
+                startActivity(Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS))
+            } catch (ex: Exception) {
+                // Fallback: open general device settings if ACTION_BATTERY_SAVER_SETTINGS
+                // is not available on this ROM (some OEMs remove it).
+                startActivity(Intent(Settings.ACTION_SETTINGS))
+            }
         }
 
         // ── Overlay / Usage access permission buttons ────────────────────────

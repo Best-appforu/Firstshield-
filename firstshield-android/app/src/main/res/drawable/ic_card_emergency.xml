@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Background circle (red) -->
+    <path android:fillColor="#C62828"
+        android:pathData="M50,6 A44,44 0 1,1 49.99,6 Z"/>
+
+    <!-- Ambulance body (white rectangle) -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M18,52 L18,70 Q18,73 21,73 L72,73 Q75,73 75,70 L75,52 Q75,49 72,49 L21,49 Q18,49 18,52 Z"/>
+
+    <!-- Ambulance cab (slightly raised front) -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M64,42 L64,49 L75,49 L75,44 Q75,42 73,42 Z"/>
+
+    <!-- Windshield (light blue) -->
+    <path android:fillColor="#B3E5FC"
+        android:pathData="M65,43 L65,48 L74,48 L74,44 Q74,43 73,43 Z"/>
+
+    <!-- Red cross on ambulance side -->
+    <path android:fillColor="#C62828"
+        android:pathData="M36,54 L36,60 L32,60 L32,63 L36,63 L36,69 L39,69 L39,63 L43,63 L43,60 L39,60 L39,54 Z"/>
+
+    <!-- Small window on rear -->
+    <path android:fillColor="#B3E5FC"
+        android:pathData="M47,53 L47,61 L58,61 L58,53 Z"/>
+
+    <!-- Left wheel -->
+    <path android:fillColor="#424242"
+        android:pathData="M27,73 A7,7 0 1,1 26.99,73 Z"/>
+    <path android:fillColor="#757575"
+        android:pathData="M27,73 A4,4 0 1,1 26.99,73 Z"/>
+
+    <!-- Right wheel -->
+    <path android:fillColor="#424242"
+        android:pathData="M63,73 A7,7 0 1,1 62.99,73 Z"/>
+    <path android:fillColor="#757575"
+        android:pathData="M63,73 A4,4 0 1,1 62.99,73 Z"/>
+
+    <!-- Siren light strip on roof -->
+    <path android:fillColor="#EF9A9A"
+        android:pathData="M24,47 L74,47 L74,49 L24,49 Z"/>
+    <!-- Siren lights -->
+    <path android:fillColor="#FF1744"
+        android:pathData="M28,44 L36,44 L36,47 L28,47 Z"/>
+    <path android:fillColor="#2979FF"
+        android:pathData="M39,44 L47,44 L47,47 L39,47 Z"/>
+    <path android:fillColor="#FF1744"
+        android:pathData="M50,44 L58,44 L58,47 L50,47 Z"/>
+
+    <!-- "112" text at top of circle -->
+    <!-- 1 -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M26,24 L26,36 L28,36 L28,25 L29,25 L29,23 L26,23 Z"/>
+    <!-- 1 -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M32,24 L32,36 L34,36 L34,25 L35,25 L35,23 L32,23 Z"/>
+    <!-- 2 -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M37,23 L43,23 L43,25 L39,25 L39,28 L43,28 L43,30 L39,30 L39,34 L43,34 L43,36 L37,36 L37,34 L41,34 L41,31 L37,31 L37,29 L41,29 L41,26 L37,26 Z"/>
+
+    <!-- Star of Life symbol (small, top right area) -->
+    <path android:fillColor="#FFEB3B"
+        android:pathData="M76,20 L78,26 L84,24 L82,30 L88,32 L82,34 L84,40 L78,38 L76,44 L74,38 L68,40 L70,34 L64,32 L70,30 L68,24 L74,26 Z"/>
+    <path android:fillColor="#C62828"
+        android:pathData="M74,27 L74,37 M69,32 L79,32"
+        android:strokeColor="#C62828"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"/>
+
+</vector>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Background circle (amber) -->
+    <path android:fillColor="#F57F17"
+        android:pathData="M50,6 A44,44 0 1,1 49.99,6 Z"/>
+
+    <!-- Battery body outline (rounded rect, vertical) -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M34,30 Q34,26 38,26 L56,26 Q60,26 60,30 L60,82 Q60,86 56,86 L38,86 Q34,86 34,82 Z"/>
+
+    <!-- Battery terminal (nub on top) -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M42,22 L52,22 L52,26 L42,26 Z"/>
+
+    <!-- Battery fill (green — healthy 70%) -->
+    <path android:fillColor="#43A047"
+        android:pathData="M36,52 Q36,50 38,50 L56,50 Q58,50 58,52 L58,80 Q58,84 56,84 L38,84 Q36,84 36,82 Z"/>
+
+    <!-- Battery charge level lines (dark dividers) -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#BDBDBD"
+        android:strokeWidth="1"
+        android:pathData="M36,62 L58,62"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#BDBDBD"
+        android:strokeWidth="1"
+        android:pathData="M36,72 L58,72"/>
+
+    <!-- Thermometer (right side, overlapping battery) -->
+    <!-- Thermometer tube -->
+    <path android:fillColor="#FFECB3"
+        android:pathData="M65,30 Q65,27 68,27 Q71,27 71,30 L71,65 Q71,68 68,68 Q65,68 65,65 Z"/>
+    <!-- Thermometer bulb -->
+    <path android:fillColor="#FF5722"
+        android:pathData="M68,68 A7,7 0 1,1 67.99,68 Z"/>
+    <!-- Mercury column inside tube -->
+    <path android:fillColor="#FF7043"
+        android:pathData="M66.5,48 L69.5,48 L69.5,65 L66.5,65 Z"/>
+    <!-- Tick marks on thermometer -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#795548"
+        android:strokeWidth="1.5"
+        android:pathData="M71,35 L74,35"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#795548"
+        android:strokeWidth="1.5"
+        android:pathData="M71,41 L74,41"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#795548"
+        android:strokeWidth="1.5"
+        android:pathData="M71,47 L74,47"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#795548"
+        android:strokeWidth="1.5"
+        android:pathData="M71,53 L74,53"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#795548"
+        android:strokeWidth="1.5"
+        android:pathData="M71,59 L74,59"/>
+
+    <!-- Heat wavy lines (right of thermometer, showing warmth) -->
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFCC02"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M78,38 Q81,41 78,44 Q75,47 78,50"/>
+    <path android:fillColor="#00000000"
+        android:strokeColor="#FFCC02"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M83,35 Q86,39 83,43 Q80,47 83,51"/>
+
+    <!-- Lightning bolt inside battery (charge symbol) -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M52,28 L44,48 L49,48 L42,72 L54,50 L49,50 Z"/>
+
+</vector>

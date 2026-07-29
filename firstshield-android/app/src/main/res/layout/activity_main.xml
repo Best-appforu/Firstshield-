@@ -465,6 +465,159 @@
                 android:backgroundTint="#1565C0"/>
         </LinearLayout>
 
+        <!-- ════════════════════════════════════════
+             SECTION HEADER — Device & Emergency Safety
+             ════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="22dp"
+                android:background="#E53935"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Device &amp; Emergency Safety"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#B71C1C"/>
+        </LinearLayout>
+
+        <!-- ════════════════════════════════════════
+             CARD 6 — Emergency SOS
+             ════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_card_orange">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/ic_card_emergency"
+                    android:layout_marginEnd="14dp"
+                    android:scaleType="fitCenter"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Emergency SOS"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#B71C1C"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Quick access to National Emergency Helpline (112) and Childline (1098)."
+                        android:textSize="12sp"
+                        android:textColor="#555555"
+                        android:lineSpacingMultiplier="1.4"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="112 — Emergency  •  1098 — Childline"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#C62828"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnEmergencySOS"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="🚨  Call Emergency (112 / 1098)"
+                android:textSize="12sp"
+                android:backgroundTint="#C62828"/>
+        </LinearLayout>
+
+        <!-- ════════════════════════════════════════
+             CARD 7 — Battery &amp; Device Health Safety
+             ════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_card_amber">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/ic_card_battery"
+                    android:layout_marginEnd="14dp"
+                    android:scaleType="fitCenter"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Battery &amp; Device Health"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#E65100"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Monitor battery health and prevent phone overheating risks."
+                        android:textSize="12sp"
+                        android:textColor="#555555"
+                        android:lineSpacingMultiplier="1.4"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnBatterySettings"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="🔋  Open Battery Settings"
+                android:textSize="12sp"
+                android:backgroundTint="#E65100"/>
+        </LinearLayout>
+
         <!-- ══════════ PRIVACY BADGE ══════════ -->
         <LinearLayout
             android:layout_width="match_parent"
